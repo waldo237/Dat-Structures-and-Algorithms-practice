@@ -7,7 +7,7 @@ class Node {
     }
 
     print(callback) {
-        return callback ? callback(this.value) : `${this.value}`;
+        return callback ? callback(this.value) : `printed value: ${this.value}`;
     }
 }
 
@@ -156,7 +156,7 @@ list.prepend(3);
 list.append(10);
 list.append(20);
 
-console.log(list.head.next);
+console.log(list.head.next.print());
 
 // console.log(list);
 
