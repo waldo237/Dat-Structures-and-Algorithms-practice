@@ -8,10 +8,6 @@ class Node {
         this.value = value;
         this.next = next;
     }
-    print() {
-        return `value: ${this.value}`;
-    }
-
 }
 
 class LinkedList {
@@ -19,23 +15,18 @@ class LinkedList {
         this.head = null;
         this.tail = null;
     }
-    static compare(a, b) {
-        if (a === b) return 0;
-        return a < b ? -1 : 1;
-    }
- static equal(a, b) {
-        return this.compare(a, b) === 0;
-    }
 
-    prepend(value){
-        const node = new Node(value);
-        if(!this.tail) this.tail = node;
-        return this;
+     equal(a, b) {
+        function compare(value1, value2) {
+            if (a === b) return 0;
+            return a < b ? -1 : 1;
+        }
+        return compare(a, b) === 0;
     }
-
-    append(value) {
-        const node = new Node(value);
-        if (!this.head) {
+  
+    append(data){
+        const node = new Node(data);
+        if(!this.head){
             this.head = node;
             this.tail = node;
             return this;
@@ -45,30 +36,27 @@ class LinkedList {
         return this;
     }
 
-    delete(value){
-        if(!this.head){
+    delete(value) {
+        if (!this.head) {
             return null;
         }
         let deletedNode = null;
-        while(this.head && this.equal(this.head.value, value)){
+        while (this.head && this.equal(this.head.value, value)) {
             deletedNode = this.head;
             this.head = this.head.next;
         }
 
         let currentNode = this.head
-        if(currentNode !== null){
-            while(correntNode.next){
-                if(this.equal(currentNode.next.value, value)){
-                    deletedNode = currentNode.next;
-                    currentNode = currentNode.next.next;
-                }else{
-                    currentNode = currentNode.next;
-                }
-
+        while (currentNode && currentNode.next) {
+            if (this.equal(currentNode.next.value, value)) {
+                deletedNode = currentNode.next;
+                currentNode = currentNode.next.next;
+            } else {
+                currentNode = currentNode.next;
             }
-
         }
-        if(this.equal(this.tail.value, value)){
+
+        if (this.equal(this.tail.value, value)) {
             this.tail = currentNode;
         }
 
@@ -79,8 +67,10 @@ class LinkedList {
 
 const list = new LinkedList();
 list.append(2);
-list.prepend(3);
 list.append(10);
 list.append(20);
-
-console.log(list);
+// list.delete(20)
+list.prepend(3);
+list.append(10);
+list.prepend(6);
+console.log(list.head.next.next.next)
