@@ -75,16 +75,18 @@ class DoubleLinkedList {
         } else {
             let deletedNodes = [];
             let currentNode = this.head;
-            
-            if(this.head.data === data){
+
+            if (this.head.data === data) {
                 this.head = currentNode.next;
-                return;          
+                return;
             }
             while (currentNode) {
                 if (currentNode.data === data) {
-                    if(currentNode.next) currentNode.next.previous = currentNode.previous;
-                    if(currentNode.previous) currentNode.previous.next = currentNode.nex;
-                    deletedNodes.push(currentNode);
+                    if (currentNode.next) {
+                        currentNode.next.previous = currentNode.previous;
+                    }
+                    if (currentNode.previous) currentNode.previous.next = currentNode.next;
+                    return deletedNodes.push({ deletedNode: currentNode });
                 }
                 currentNode = currentNode.next;
             }
@@ -96,16 +98,14 @@ class DoubleLinkedList {
         if (!this.head) {
             return null;
         } else {
-            let deletedNodes = [];
             let currentNode = this.head;
-
             while (currentNode) {
                 if (currentNode.data === data) {
-                    return deletedNodes.push(currentNode);
+                    return currentNode;
                 }
                 currentNode = currentNode.next;
             }
-            return deletedNodes;
+            return null;
         }
     }
     print() {
@@ -120,34 +120,36 @@ class DoubleLinkedList {
 
 const list = new DoubleLinkedList();
 
-list.append('a');
-list.append('b');
-list.append('c');
-list.append('d');
-list.prepend('z');
-list.prepend('z');
-list.prepend('z');
-list.prepend('y');
+list.append(1);
+list.append(2);
+list.append(3);
 
+list.prepend(0);
+list.prepend(-1);
+list.deleteHead();
+list.deleteTail();
+list.delete(1);
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-const rlPromise = () => new Promise((resolve, reject)=>{
-    rl.question("what do you want to add", (input)=> resolve(list.append(input)) )
+list.print()
 
-})
-rlPromise()
-.then(()=>{
-    rl.question("letter to delete? ", function(letter) {
-        list.delete(letter);
-    rl.close();
-    });
-})
+// const rl = readline.createInterface({
+//     input: process.stdin,
+//     output: process.stdout
+// });
+// const rlPromise = () => new Promise((resolve, reject)=>{
+//     rl.question("what do you want to add", (input)=> resolve(list.append(input)) )
 
-rl.on("close", function() {
-    list.print();
-    console.log("\nBYE BYE !!!");
-    process.exit(0);
-});
+// })
+// rlPromise()
+// .then(()=>{
+//     rl.question("letter to delete? ", function(letter) {
+//         list.delete(letter);
+//     rl.close();
+//     });
+// })
+
+// rl.on("close", function() {
+//     list.print();
+//     console.log("\nBYE BYE !!!");
+//     process.exit(0);
+// });
