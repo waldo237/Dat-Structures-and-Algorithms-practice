@@ -82,10 +82,10 @@ class DoubleLinkedList {
             }
             while (currentNode) {
                 if (currentNode.data === data) {
-                    if (currentNode.next) {
-                        currentNode.next.previous = currentNode.previous;
-                    }
+
+                    if (currentNode.next) currentNode.next.previous = currentNode.previous;
                     if (currentNode.previous) currentNode.previous.next = currentNode.next;
+                    
                     return deletedNodes.push({ deletedNode: currentNode });
                 }
                 currentNode = currentNode.next;
