@@ -1,3 +1,6 @@
+const { rejects } = require('assert');
+const { resolve } = require('path');
+const readline = require('readline');
 class Node {
     constructor(data, next = null, previous = null) {
         this.data = data;
@@ -23,19 +26,89 @@ class DoubleLinkedList {
 
 
     }
-    prepend(data){
+    prepend(data) {
         const newNode = new Node(data);
-        if(!this.head){
+        if (!this.head) {
             this.head = this.tail = newNode;
-        }else{
+        } else {
             this.head.previous = newNode;
             newNode.next = this.head;
             this.head = newNode;
         }
     }
 
+    deleteHead() {
+        if (!this.head) {
+            return null;
+        } else {
+            let removedHead = this.head;
 
+            if (this.head === this.tail) {
+                this.head = this.tail = null;
+            } else {
+                this.head = this.head.next;
+                this.head.previous = null;
+            }
+            return removedHead.value;
+        }
+    }
 
+    deleteTail() {
+        if (!this.tail) {
+            return null;
+        } else {
+            let removedTail = this.tail;
+
+            if (this.head === this.tail) {
+                this.head = this.tail = null;
+            } else {
+                this.tail = this.tail.previous;
+                this.tail.next = null;
+            }
+            return removedTail.value;
+        }
+    }
+
+    delete(data) {
+        if (!this.head) {
+            return null;
+        } else {
+            let deletedNodes = [];
+            let currentNode = this.head;
+            
+            while (currentNode) {
+                if (currentNode.data === data) {
+                    if(currentNode === this.head){
+                        this.head = currentNode.next;
+                        currentNode.next.previous = currentNode.previous;
+                        
+                    }
+                }else if (currentNode.data !== data && currentNode === this.tail) {
+                   
+                    return deletedNodes.push('Given node not found in the list! Deletion not possible!!!');
+                }
+                currentNode = currentNode.next;
+            }
+            return deletedNodes;
+        }
+    }
+
+    search(data) {
+        if (!this.head) {
+            return null;
+        } else {
+            let deletedNodes = [];
+            let currentNode = this.head;
+
+            while (currentNode) {
+                if (currentNode.data === data) {
+                    return deletedNodes.push(currentNode);
+                }
+                currentNode = currentNode.next;
+            }
+            return deletedNodes;
+        }
+    }
     print() {
         let currentNode = this.head;
 
@@ -53,7 +126,29 @@ list.append('b');
 list.append('c');
 list.append('d');
 list.prepend('z');
+list.prepend('z');
+list.prepend('z');
 list.prepend('y');
-list.print();
 
-console.log(list)
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+const rlPromise = () => new Promise((resolve, reject)=>{
+    rl.question("what do you want to add", (input)=> resolve(list.append(input)) )
+
+})
+rlPromise()
+.then(()=>{
+    rl.question("letter to delete? ", function(letter) {
+        list.delete(letter);
+    rl.close();
+    });
+})
+
+rl.on("close", function() {
+    list.print();
+    console.log("\nBYE BYE !!!");
+    process.exit(0);
+});
