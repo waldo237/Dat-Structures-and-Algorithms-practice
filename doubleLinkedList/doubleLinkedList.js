@@ -76,16 +76,15 @@ class DoubleLinkedList {
             let deletedNodes = [];
             let currentNode = this.head;
             
+            if(this.head.data === data){
+                this.head = currentNode.next;
+                return;          
+            }
             while (currentNode) {
                 if (currentNode.data === data) {
-                    if(currentNode === this.head){
-                        this.head = currentNode.next;
-                        currentNode.next.previous = currentNode.previous;
-                        
-                    }
-                }else if (currentNode.data !== data && currentNode === this.tail) {
-                   
-                    return deletedNodes.push('Given node not found in the list! Deletion not possible!!!');
+                    if(currentNode.next) currentNode.next.previous = currentNode.previous;
+                    if(currentNode.previous) currentNode.previous.next = currentNode.nex;
+                    deletedNodes.push(currentNode);
                 }
                 currentNode = currentNode.next;
             }
