@@ -7,15 +7,16 @@ class Encoder {
     }
 
     encodeId(num) {
-        if(!Number.isInteger(num)) throw new Error("the input was not a number") ;
+      let parsedNum =   Number.parseInt(num);
+        if(!Number.isInteger(parsedNum)) throw new Error("the input was not a number") ;
         const base = this.DICTIONARY.length;
         let enconded = "";
-        if (num === 0) {
+        if (parsedNum === 0) {
             return this.DICTIONARY[0];
         }
-        while (num > 0) {
-            enconded += this.DICTIONARY[num % base];
-            num = Math.floor(num / base);
+        while (parsedNum > 0) {
+            enconded += this.DICTIONARY[parsedNum % base];
+            parsedNum = Math.floor(parsedNum / base);
         }
         return this.reverseWord(enconded);
     }
@@ -39,7 +40,7 @@ class Encoder {
 
 const encoder = new Encoder();
 
-console.log(encoder.encodeId('11231er230'));
+console.log(encoder.encodeId(11231230));
 console.log(encoder.decodeId('S4UF'));
 
 exports.Encoder = Encoder;
