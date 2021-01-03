@@ -11,7 +11,7 @@ function isPrime(n) {
     return true;
 }
 // o(sqrt(n))
-function isPrime2(n) {
+const isPrime2= (n)=> {
     if (n <= 1) return false;
     if (n <= 3) return true;
     if (n % 2 == 0 || n % 3 == 0) return false;
@@ -49,7 +49,7 @@ function primeFactors(n) {
 function allPrimesLessThanN(n) {
     for (let i = 0; i < n; i++) {
         if (isPrime2(i)) {
-            console.log(i);
+            
         }
     }
 }
@@ -89,4 +89,7 @@ allPrimesLessThanN(50);
 function numberEquals(x, y) { 
     return Math.abs(x - y) < Number.EPSILON;
  }
-console.log('comparing decimals: ',numberEquals(0.1 + 0.2, 0.3));
+// console.log('comparing decimals: ',numberEquals(0.1 + 0.2, 0.3));
+
+
+exports.isPrime = isPrime2;
