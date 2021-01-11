@@ -14,6 +14,8 @@ function findSum(arr, weight) {
     }
     return -1;
 }
+
+
 // O(n)
 function findSumImproved(arr, weight) {
     let hashTable = {};
