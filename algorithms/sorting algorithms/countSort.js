@@ -6,7 +6,7 @@ function countSort(array){
         }else{
             hash[array[i]]++;
         }
-    }
+    } 
 
     for(let key in hash){
         for(let i=0; i<hash[key]; i++){
