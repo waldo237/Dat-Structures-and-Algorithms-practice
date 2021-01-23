@@ -1,10 +1,12 @@
 {
   "name": "datastructures",
   "version": "1.0.0",
+  
   "description": "",
   "main": "Linkedlist.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ts": "tsc \"$npm_config_var\" && node \"$npm_config_var\""
+    
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/waldo237/Dat-Structures-and-Algorithms-practice/issues"
   },
-  "homepage": "https://github.com/waldo237/Dat-Structures-and-Algorithms-practice#readme"
+  "homepage": "https://github.com/waldo237/Dat-Structures-and-Algorithms-practice#readme",
+  "dependencies": {
+    "typescript": "^4.1.3"
+  }
 }
