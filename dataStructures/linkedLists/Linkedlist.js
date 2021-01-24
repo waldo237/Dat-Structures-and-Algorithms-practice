@@ -1,6 +1,8 @@
-var Comparator = require('./comparator').Comparator;
+"use strict";
 var LinkedListNode = /** @class */ (function () {
     function LinkedListNode(value, next) {
+        this.value = null;
+        this.next = null;
         this.value = value;
         this.next = next;
     }
@@ -11,28 +13,27 @@ var LinkedList = /** @class */ (function () {
         this.head = null;
         this.tail = null;
     }
-    LinkedList.prototype.prepend = function (value) {
-        var node = new LinkedListNode(value, this.head);
+    LinkedList.prototype.prepend = function (data) {
+        var node = new LinkedListNode(data, this.head);
         this.head = node;
         if (!this.tail) {
             this.tail = node;
         }
-        return this;
+        return this.head;
     };
-    LinkedList.prototype.append = function (value) {
-        var node = new LinkedListNode(value, null);
+    LinkedList.prototype.append = function (data) {
+        var node = new LinkedListNode(data, null);
         if (!this.head) {
             this.head = node;
             this.tail = node;
-            return this;
+            return node;
         }
         this.tail.next = node;
         this.tail = node;
-        return this;
+        return node;
     };
     LinkedList.prototype.delete = function (value) {
         if (!this.head) {
-            return null;
         }
         var deletedNode = null;
         while (this.head && this.head.value === value) {
@@ -56,17 +57,13 @@ var LinkedList = /** @class */ (function () {
         }
         return deletedNode;
     };
-    LinkedList.prototype.find = function (_a) {
-        var _b = _a.value, value = _b === void 0 ? undefined : _b, _c = _a.callback, callback = _c === void 0 ? undefined : _c;
+    LinkedList.prototype.find = function (data) {
         if (!this.head) {
             return null;
         }
         var currentNode = this.head;
         while (currentNode) {
-            if (callback && callback(currentNode.value)) {
-                return currentNode;
-            }
-            if (value !== undefined && currentNode.value === value) {
+            if (data !== undefined && currentNode.value === data) {
                 return currentNode;
             }
             currentNode = currentNode.next;
@@ -128,6 +125,4 @@ list.prepend(3);
 list.append(10);
 list.append(20);
 console.log(list);
-// console.log(list);
 exports.LinkedList = LinkedList;
-//# sourceMappingURL=Linkedlist.js.map

@@ -1,60 +1,61 @@
-const {Comparator} =  require('./comparator');
 
-interface LLNode {
-        value:number;
-        next: LLNode;
-}
 class LinkedListNode {
-   public value:number;
-    public next: LLNode;
+    public value: number | null = null;
+    public next: LinkedListNode | null = null;
 
-    constructor(value:number, next:LLNode){
+    constructor(value: number, next: LinkedListNode | null) {
         this.value = value;
         this.next = next;
     }
 }
 
-class LinkedList {
-    head:LLNode;
-    tail: LLNode;
+interface ILinkedList {
+    prepend(data: number): LinkedListNode;
+    append(data: number): LinkedListNode;
+    delete(data: number): LinkedListNode;
+    deleteHead(data: number): LinkedListNode;
+    deleteTail(data: number): LinkedListNode;
+    reverse(): void;
+    find(data: number): LinkedListNode;
 
-    constructor() {
-        this.head = null;
-        this.tail = null;
-      
-    }
+}
 
-    prepend(value:number) {
-        const node:LLNode = new LinkedListNode(value, this.head);
+class LinkedList implements ILinkedList {
+    private head: LinkedListNode  = null;
+    private tail: LinkedListNode  = null;
+
+
+    public prepend(data: number): LinkedListNode {
+        const node = new LinkedListNode(data, this.head);
         this.head = node;
 
         if (!this.tail) {
             this.tail = node;
         }
-        return this;
+        return this.head;
     }
 
-    append(value:number) {
-        const node:LLNode = new LinkedListNode(value, null);
+    public append(data: number): LinkedListNode {
+        const node = new LinkedListNode(data, null);
         if (!this.head) {
             this.head = node;
             this.tail = node;
-            return this;
+            return node;
         }
 
         this.tail.next = node;
         this.tail = node;
-        return this;
+        return node;
     }
 
 
-    delete(value:number) {
+    public delete(value: number): LinkedListNode | null {
         if (!this.head) {
-            return null;
+
         }
         let deletedNode = null;
 
-        while (this.head && this.head.value ===value) {
+        while (this.head && this.head.value === value) {
             deletedNode = this.head;
             this.head = this.head.next;
         }
@@ -63,7 +64,7 @@ class LinkedList {
 
         if (currentNode !== null) {
             while (currentNode.next) {
-                if (currentNode.next.value===value) {
+                if (currentNode.next.value === value) {
                     deletedNode = currentNode.next;
                     currentNode.next = currentNode.next.next;
                 } else {
@@ -71,7 +72,7 @@ class LinkedList {
                 }
             }
         }
-        if (this.tail.value===value) {
+        if (this.tail.value === value) {
             this.tail = currentNode;
         }
         return deletedNode;
@@ -79,17 +80,15 @@ class LinkedList {
 
 
 
-    find({ value = undefined, callback = undefined }) {
+    public find(data: T): LinkedListNode | null {
         if (!this.head) {
             return null;
         }
         let currentNode = this.head;
 
         while (currentNode) {
-            if (callback && callback(currentNode.value)) {
-                return currentNode;
-            }
-            if (value !== undefined && currentNode.value===value) {
+
+            if (data !== undefined && currentNode.value === data) {
                 return currentNode;
             }
 
@@ -98,7 +97,7 @@ class LinkedList {
         return null;
     }
 
-    deleteTail() {
+    public deleteTail(): LinkedListNode {
         const deletedTail = this.tail;
 
         if (this.head === this.tail) {
@@ -107,13 +106,13 @@ class LinkedList {
 
             return deletedTail;
         }
-        
+
         let currentNode = this.head;
 
-        while(currentNode.next){
-            if(!currentNode.next.next){
+        while (currentNode.next) {
+            if (!currentNode.next.next) {
                 currentNode.next = null;
-            }else{
+            } else {
                 currentNode = currentNode.next;
             }
         }
@@ -121,28 +120,28 @@ class LinkedList {
         return deletedTail;
     }
 
-    deleteHead(){
-        if(!this.head){
+    public deleteHead(): LinkedListNode {
+        if (!this.head) {
             return null;
         }
 
         const deletedHead = this.head;
 
-        if(this.head.next){
+        if (this.head.next) {
             this.head = this.head.next;
-        }else{
+        } else {
             this.head = null;
             this.tail = null;
         }
         return deletedHead;
     }
 
-    reverse(){
+    reverse() {
         let currentNode = this.head;
         let prevNode = null;
         let nextNode = null;
 
-        while(currentNode){
+        while (currentNode) {
             nextNode = currentNode.next;
             currentNode.next = prevNode;
             prevNode = currentNode;
@@ -162,8 +161,6 @@ list.append(10);
 list.append(20);
 
 console.log(list);
-
-// console.log(list);
 
 
 
