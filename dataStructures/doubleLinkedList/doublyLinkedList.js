@@ -82,6 +82,7 @@ class DoublyLinkList{
             }
             while(currentNode){
                 if(currentNode.data ===data){
+                    
                   if(currentNode.next)  currentNode.next.prev = currentNode.prev;
                   if(currentNode.prev)  currentNode.prev.next = currentNode.next;
                   removedNodes.push({deletedNode: currentNode});
@@ -90,6 +91,7 @@ class DoublyLinkList{
             }
             return removedNodes;
         }
+        this.print();
     }
     print(){
         let currentNode = this.head;
