@@ -12,10 +12,11 @@ class DoublyLinkedListNode<T> {
 class DoublyLinkedList<T>{
     head: DoublyLinkedListNode<T> | null = null;
     tail: DoublyLinkedListNode<T> | null = null;
-
+    size: number = 0;
     constructor() {
         this.head;
         this.tail;
+
     }
 
     public append(data: T): void {
@@ -23,10 +24,12 @@ class DoublyLinkedList<T>{
         if (!this.tail) {
             this.head = node;
             this.tail = node;
+            this.size++;
         } else {
             this.tail.next = node;
             node.prev = this.tail;
             this.tail = node;
+            this.size++;
         }
     }
 
@@ -35,20 +38,26 @@ class DoublyLinkedList<T>{
         if (!this.head) {
             this.head = node;
             this.tail = node;
+            this.size++;
+
+        } else {
+            this.head.prev = node;
+            this.head = node;
+            this.size++;
+
         }
 
-        this.head.prev = node;
-        this.head = node;
 
     }
 
-    public delete(data: T): DoublyLinkedListNode<T> | null {
+    public remove(data: T): DoublyLinkedListNode<T> | null {
         if (!this.head || !this.tail) return null;
 
         let deletedNode: DoublyLinkedListNode<T> | null = null;
         if (this.head.data === data) {
             this.head = this.head.next;
             this.head!.prev = null;
+            this.size--;
             return deletedNode
         }
 
@@ -56,10 +65,10 @@ class DoublyLinkedList<T>{
         while (currentNode) {
             if (currentNode.data === data) {
                 deletedNode = currentNode;
-                if(!currentNode.next) this.tail = this.tail.prev //update the tail
-                if (currentNode.next)  currentNode.next.prev = currentNode.prev;
+                if (!currentNode.next) this.tail = this.tail.prev //update the tail
+                if (currentNode.next) currentNode.next.prev = currentNode.prev;
                 if (currentNode.prev) currentNode.prev.next = currentNode.next;
-               
+                this.size--;
                 return deletedNode;
             }
             currentNode = currentNode.next;
@@ -67,21 +76,31 @@ class DoublyLinkedList<T>{
         return deletedNode;
     }
 
-    public reverse():void{
-        if(this.head){
+    public removeFirst(): DoublyLinkedListNode<T> | null {
+        if (!this.head) return null;
+        let deletedNode: DoublyLinkedListNode<T> | null = this.head;
+
+        this.head = this.head.next;
+        this.head!.prev = null;
+        this.size--;
+        return deletedNode
+
+    }
+
+    public reverse(): void {
+        if (this.head) {
             let currentNode: DoublyLinkedListNode<T> | null = this.head;
             let temp: DoublyLinkedListNode<T> | null = null;
 
             while (currentNode) {
-                 temp = currentNode.prev;
+                temp = currentNode.prev;
                 currentNode.prev = currentNode.next;
                 currentNode.next = temp;
                 currentNode = currentNode.prev;
             }
         
+            this.head = this.tail;
         }
-        this.head = this.tail;
-        this.print()
     }
 
     public print(): void {
@@ -102,8 +121,10 @@ list.append('tres')
 list.append('cuatro')
 list.prepend('zero')
 list.reverse()
-// list.delete('cuatro');
-// list.delete('dos');
-// list.print();
+list.removeFirst();
+list.removeFirst();
+
+
+list.print();
 
 // console.log(list.tail)

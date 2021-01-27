@@ -11,6 +11,7 @@ var DoublyLinkedList = /** @class */ (function () {
     function DoublyLinkedList() {
         this.head = null;
         this.tail = null;
+        this.size = 0;
         this.head;
         this.tail;
     }
@@ -19,11 +20,13 @@ var DoublyLinkedList = /** @class */ (function () {
         if (!this.tail) {
             this.head = node;
             this.tail = node;
+            this.size++;
         }
         else {
             this.tail.next = node;
             node.prev = this.tail;
             this.tail = node;
+            this.size++;
         }
     };
     DoublyLinkedList.prototype.prepend = function (data) {
@@ -31,17 +34,22 @@ var DoublyLinkedList = /** @class */ (function () {
         if (!this.head) {
             this.head = node;
             this.tail = node;
+            this.size++;
         }
-        this.head.prev = node;
-        this.head = node;
+        else {
+            this.head.prev = node;
+            this.head = node;
+            this.size++;
+        }
     };
-    DoublyLinkedList.prototype.delete = function (data) {
+    DoublyLinkedList.prototype.remove = function (data) {
         if (!this.head || !this.tail)
             return null;
         var deletedNode = null;
         if (this.head.data === data) {
             this.head = this.head.next;
             this.head.prev = null;
+            this.size--;
             return deletedNode;
         }
         var currentNode = this.head;
@@ -54,10 +62,20 @@ var DoublyLinkedList = /** @class */ (function () {
                     currentNode.next.prev = currentNode.prev;
                 if (currentNode.prev)
                     currentNode.prev.next = currentNode.next;
+                this.size--;
                 return deletedNode;
             }
             currentNode = currentNode.next;
         }
+        return deletedNode;
+    };
+    DoublyLinkedList.prototype.removeFirst = function () {
+        if (!this.head)
+            return null;
+        var deletedNode = this.head;
+        this.head = this.head.next;
+        this.head.prev = null;
+        this.size--;
         return deletedNode;
     };
     DoublyLinkedList.prototype.reverse = function () {
@@ -70,9 +88,8 @@ var DoublyLinkedList = /** @class */ (function () {
                 currentNode.next = temp;
                 currentNode = currentNode.prev;
             }
+            this.head = this.tail;
         }
-        this.head = this.tail;
-        this.print();
     };
     DoublyLinkedList.prototype.print = function () {
         var currentNode;
@@ -91,7 +108,7 @@ list.append('tres');
 list.append('cuatro');
 list.prepend('zero');
 list.reverse();
-// list.delete('cuatro');
-// list.delete('dos');
-// list.print();
+list.removeFirst();
+list.removeFirst();
+list.print();
 // console.log(list.tail)
