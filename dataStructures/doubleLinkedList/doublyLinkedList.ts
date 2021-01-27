@@ -115,14 +115,20 @@ class DoublyLinkedList<T>{
 }
 
 const list = new DoublyLinkedList<string>();
+console.log('the size is',list.size)
 list.append('uno')
+console.log('the size is',list.size)
 list.append('dos')
 list.append('tres')
+console.log('the size is',list.size)
 list.append('cuatro')
 list.prepend('zero')
 list.reverse()
+console.log('the size is',list.size)
 list.removeFirst();
 list.removeFirst();
+list.remove('dos')
+console.log('the size is',list.size)
 
 
 list.print();
