@@ -7,7 +7,7 @@ class Queue<T> {
     public enqueue(item: T) {
         this.items.push(item);
     }
-    public dequeue() {
+    public dequeue():T|undefined |null {
         if (this.isEmpty()) {
             return null;
         } else {
@@ -19,7 +19,7 @@ class Queue<T> {
         if (!this.isEmpty()) return this.items[0];
     }
 
-    public isEmpty() {
+    public isEmpty():boolean {
         return this.items.length === 0;
     }
 
