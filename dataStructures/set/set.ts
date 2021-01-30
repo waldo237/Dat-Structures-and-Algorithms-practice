@@ -15,11 +15,12 @@ function intersectSets<T>(setA: Set<T>, setB: Set<T>): Set<T> {
     }
     return intersection;
 }
-const set1 = new Set([1, 2, 3, 4]),
-    set2 = new Set([2, 3]);
+const set1 = new Set<number>([1, 2, 3, 4]),
+    set2 = new Set<number>([2, 3]);
 intersectSets(set1, set2); // Set {2, 3}
 
-function isSuperset<T>(setA: Set<T>, subset: Set<T>) {
+
+function isSuperset<T>(setA: Set<T>, subset: Set<T>):boolean {
     for (let elem of subset) {
         if (!setA.has(elem)) {
             return false;
@@ -28,21 +29,21 @@ function isSuperset<T>(setA: Set<T>, subset: Set<T>) {
     return true;
 }
 
-var setA = new Set([1, 2, 3, 4]),
-    setB = new Set([2, 3]),
-    setC = new Set([5]);
-isSuperset(setA, setB);
+const set3 = new Set([1, 2, 3, 4]),
+    set4 = new Set([2, 3]),
+    set5 = new Set([5]);
+isSuperset(set3, set4);
 
-setA.isSuperset(setC);
+set4.isSuperset(set5);
 
-function unionSet(setA, setB) {
-    var union = new Set(setA);
-    for (var elem of setB) {
+function unionSetSet<T>(setA:T, setB:T) {
+    const union = new Set(setA);
+    for (let elem of setB) {
         union.add(elem);
     }
     return union;
 }
-var setA = new Set([1, 2, 3, 4]),
+const setA = new Set([1, 2, 3, 4]),
     setB = new Set([2, 3]),
     setC = new Set([5]);
 unionSet(setA, setB);

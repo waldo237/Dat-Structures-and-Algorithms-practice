@@ -56,10 +56,10 @@ function isSuperset(setA, subset) {
     }
     return true;
 }
-var setA = new Set([1, 2, 3, 4]), setB = new Set([2, 3]), setC = new Set([5]);
-isSuperset(setA, setB);
-setA.isSuperset(setC);
-function unionSet(setA, setB) {
+var set3 = new Set([1, 2, 3, 4]), set4 = new Set([2, 3]), set5 = new Set([5]);
+isSuperset(set3, set4);
+set4.isSuperset(set5);
+function unionSetSet(setA, setB) {
     var e_3, _a;
     var union = new Set(setA);
     try {
