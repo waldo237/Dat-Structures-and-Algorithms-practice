@@ -1,3 +1,6 @@
+const assert = require('assert').strict;
+
+assert.do
 function HashTable(size) {
     this.size = size;
     this.keys = this.initArray(size);
