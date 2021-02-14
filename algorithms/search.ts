@@ -60,7 +60,8 @@ function sqrtIntNaive(number: number) {
     }
     return index;
 }
-console.log('square naive', sqrtIntNaive(9);
+
+console.log('square naive', sqrtIntNaive(9));
 
 function sqrtInt(number:number) {
     if (number == 0 || number == 1) return number;
@@ -85,12 +86,12 @@ function sqrtInt(number:number) {
 }
 sqrtInt(9);
 
-function sqrtDouble(number) {
-    var threshold = 0.1;
+function sqrtDouble(number:number) {
+    const threshold = 0.1;
     //9 try middle,
-    var upper = number;
-    var lower = 0;
-    var middle;
+    let upper = number;
+    let lower = 0;
+    let middle;
     while (upper - lower > threshold) {
         middle = (upper + lower) / 2;
         if (middle * middle > number) {
@@ -101,9 +102,9 @@ function sqrtDouble(number) {
     }
     return middle
 }
-sqrtDouble(9); // 3.0234375
+console.log(sqrtDouble(9)); // 3.0234375
 
-function findTwoSum(array, sum) {
+function findTwoSumNaive(array:Array<number>, sum:number) {
     for (let i = 0, arrayLength = array.length; i < arrayLength; i++) {
         for (let j = i; j < arrayLength; j++) {
             if (array[j] + array[i]) {
@@ -114,11 +115,14 @@ function findTwoSum(array, sum) {
     return false;
 }
 
-function findTwoSum(array, sum) {
-    var store = {};
+function findTwoSum(array:Array<number>, sum:number):boolean {
+    interface StoreInterface{
+        [key: string]:Number
+    };
+    let store:StoreInterface = {};
 
     for (let i = 0, arrayLength = array.length; i < arrayLength; i++) {
-        console.log(store);
+  
         if (store[sum - array[i]]) {
             return true;
         } else {
@@ -128,9 +132,9 @@ function findTwoSum(array, sum) {
     return false;
 }
 
-console.log(findTwoSum([1, 2, 3], 5));
+console.log(findTwoSum([1, 2, 3],5));
 
-function findOnlyOnce(arr, low, high) {
+function findOnlyOnce(arr:Array<number>, low:number, high:number):number | null {
     if (low > high) {
         return null;
     }
@@ -138,7 +142,7 @@ function findOnlyOnce(arr, low, high) {
         return arr[low];
     }
 
-    var mid = Math.floor((high + low) / 2);
+    const mid = Math.floor((high + low) / 2);
 
     if (mid % 2 == 0) {
         if (arr[mid] == arr[mid + 1]) {
@@ -155,12 +159,12 @@ function findOnlyOnce(arr, low, high) {
     }
 }
 
-function findOnlyOnceHelper(arr) {
+function findOnlyOnceHelper(arr:Array<number>) {
     return findOnlyOnce(arr, 0, arr.length);
 }
 findOnlyOnceHelper([1, 1, 2, 4, 4, 5, 5, 6, 6]);
 // ### 4. Find the minimum element in a sorted and rotated array
-function findMinRotated(arr, low, high) {
+function findMinRotated(arr:Array<number>, low:number, high:number):number | null {
     // This condition is needed to handle the case when array is not
     // rotated at all
     if (high < low) return arr[0];
@@ -186,7 +190,7 @@ function findMinRotated(arr, low, high) {
     return findMinRotated(arr, mid + 1, high);
 }
 
-function findMinRotatedHelper(arr) {
+function findMinRotatedHelper(arr:Array<number>) {
     return findMinRotated(arr, 0, arr.length - 1);
 }
 findMinRotatedHelper([5, 6, 1, 2, 3]);

@@ -56,13 +56,13 @@ function sqrtIntNaive(number) {
     }
     return index;
 }
-sqrtIntNaive(9);
+console.log('square naive', sqrtIntNaive(9));
 function sqrtInt(number) {
     if (number == 0 || number == 1)
         return number;
     var start = 1, end = number, ans;
     while (start <= end) {
-        var mid = parseInt((start + end) / 2);
+        var mid = Math.floor((start + end) / 2);
         if (mid * mid == number)
             return mid;
         if (mid * mid < number) {
@@ -93,8 +93,8 @@ function sqrtDouble(number) {
     }
     return middle;
 }
-sqrtDouble(9); // 3.0234375
-function findTwoSum(array, sum) {
+console.log(sqrtDouble(9)); // 3.0234375
+function findTwoSumNaive(array, sum) {
     for (var i = 0, arrayLength = array.length; i < arrayLength; i++) {
         for (var j = i; j < arrayLength; j++) {
             if (array[j] + array[i]) {
@@ -105,9 +105,9 @@ function findTwoSum(array, sum) {
     return false;
 }
 function findTwoSum(array, sum) {
+    ;
     var store = {};
     for (var i = 0, arrayLength = array.length; i < arrayLength; i++) {
-        console.log(store);
         if (store[sum - array[i]]) {
             return true;
         }
