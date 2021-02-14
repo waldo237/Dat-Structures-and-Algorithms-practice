@@ -47,36 +47,32 @@ function binarySearch(array: Array<number>, startIndex: number, endIndex: number
 }
 console.log('is in array binary recursion:', binarySearch([-121, 2, 3, 4, 5, 71, 102], 0, 6, 4));
 
-function sqrtIntNaive(number) {
-    if (number == 0 || number == 1)
-        return number;
+function sqrtIntNaive(number: number) {
+    if (number == 0 || number == 1) return number;
 
-    var index = 1, square = 1;
-
+    let index = 1, square = 1;
     while (square < number) {
         if (square == number) {
             return square;
         }
-
         index++;
         square = index * index;
     }
     return index;
 }
-sqrtIntNaive(9);
+console.log('square naive', sqrtIntNaive(9);
 
-function sqrtInt(number) {
+function sqrtInt(number:number) {
     if (number == 0 || number == 1) return number;
 
-    var start = 1,
+    let start = 1,
         end = number,
         ans;
 
     while (start <= end) {
-        let mid = parseInt((start + end) / 2);
+        let mid = Math.floor((start + end) / 2);
 
-        if (mid * mid == number)
-            return mid;
+        if (mid * mid == number) return mid;
 
         if (mid * mid < number) {
             start = mid + 1; // use the upper section
