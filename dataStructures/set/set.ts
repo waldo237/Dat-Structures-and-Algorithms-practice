@@ -34,9 +34,8 @@ const set3 = new Set([1, 2, 3, 4]),
     set5 = new Set([5]);
 isSuperset(set3, set4);
 
-set4.isSuperset(set5);
 
-function unionSetSet<T>(setA:T, setB:T) {
+function unionSet <T>(setA:Set<T>, setB:Set<T>) {
     const union = new Set(setA);
     for (let elem of setB) {
         union.add(elem);
@@ -46,27 +45,28 @@ function unionSetSet<T>(setA:T, setB:T) {
 const setA = new Set([1, 2, 3, 4]),
     setB = new Set([2, 3]),
     setC = new Set([5]);
+
 unionSet(setA, setB);
 
 unionSet(setA, setC);
 
-function differenceSet(setA, setB) {
-    var difference = new Set(setA);
-    for (var elem of setB) {
+function differenceSet<T> (setA:Set<T>, setB:Set<T>) {
+    const difference = new Set(setA);
+    for (let elem of setB) {
         difference.delete(elem);
     }
     return difference;
 }
-var setA = new Set([1, 2, 3, 4]),
-    setB = new Set([2, 3]);
-differenceSet(setA, setB); // Set(2) {1, 4}
+const setAA = new Set([1, 2, 3, 4]),
+    setBB = new Set([2, 3]);
+differenceSet<number>(setAA, setBB); // Set(2) {1, 4}
 
 
 
 // Exercises
 // Question 1
-function checkDuplicates(arr) {
-    var mySet = new Set(arr);
+function checkDuplicates <T>(arr:Array<T>):boolean {
+    const mySet = new Set(arr);
     return mySet.size < arr.length;
 }
 checkDuplicates([1, 2, 3, 4, 5]); // false
@@ -74,8 +74,8 @@ checkDuplicates([1, 1, 2, 3, 4, 5]); // true
 
 
 // Question 2
-function uniqueList(arr1, arr2) {
-    var mySet = new Set(arr1.concat(arr2));
+function uniqueList <T>(arr1:Array<T>, arr2:Array<T>):Array<T> {
+    const mySet = new Set(arr1.concat(arr2));
     return Array.from(mySet);
 }
 uniqueList([1, 1, 2, 2], [2, 3, 4, 5]); // [1,2,3,4,5]

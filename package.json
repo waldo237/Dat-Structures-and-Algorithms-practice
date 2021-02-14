@@ -1,12 +1,10 @@
 {
   "name": "datastructures",
   "version": "1.0.0",
-  
   "description": "",
   "main": "Linkedlist.js",
   "scripts": {
     "ts": "tsc \"$npm_config_var\" && node \"$npm_config_var\""
-    
   },
   "repository": {
     "type": "git",
@@ -20,5 +18,8 @@
   "homepage": "https://github.com/waldo237/Dat-Structures-and-Algorithms-practice#readme",
   "dependencies": {
     "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

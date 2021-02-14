@@ -58,8 +58,7 @@ function isSuperset(setA, subset) {
 }
 var set3 = new Set([1, 2, 3, 4]), set4 = new Set([2, 3]), set5 = new Set([5]);
 isSuperset(set3, set4);
-set4.isSuperset(set5);
-function unionSetSet(setA, setB) {
+function unionSet(setA, setB) {
     var e_3, _a;
     var union = new Set(setA);
     try {
@@ -98,8 +97,8 @@ function differenceSet(setA, setB) {
     }
     return difference;
 }
-var setA = new Set([1, 2, 3, 4]), setB = new Set([2, 3]);
-differenceSet(setA, setB); // Set(2) {1, 4}
+var setAA = new Set([1, 2, 3, 4]), setBB = new Set([2, 3]);
+differenceSet(setAA, setBB); // Set(2) {1, 4}
 // Exercises
 // Question 1
 function checkDuplicates(arr) {
