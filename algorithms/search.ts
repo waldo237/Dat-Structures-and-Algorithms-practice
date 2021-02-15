@@ -43,7 +43,7 @@ function binarySearch(array: Array<number>, startIndex: number, endIndex: number
         return binarySearch(array, startIndex, middleIndex - 1);
     } else {
         return binarySearch(array, middleIndex + 1, endIndex);
-    }
+    } 
 }
 console.log('is in array binary recursion:', binarySearch([-121, 2, 3, 4, 5, 71, 102], 0, 6, 4));
 
