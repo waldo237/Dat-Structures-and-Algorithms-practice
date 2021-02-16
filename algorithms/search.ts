@@ -7,8 +7,8 @@ function linearSearch<T>(array: Array<T>, n: T): boolean {
     return false;
 }
 
-console.log('is in array linearsearch:', linearSearch([1, 2, 3, 4], 4));
-console.log('is in array linearsearch:', linearSearch([1, 2, 3, 4], 5));
+// console.log('is in array linearsearch:', linearSearch([1, 2, 3, 4], 4));
+// console.log('is in array linearsearch:', linearSearch([1, 2, 3, 4], 5));
 
 function binarySearch1(array: Array<number>, n: number): number {
     let lowIndex = 0,
@@ -27,8 +27,8 @@ function binarySearch1(array: Array<number>, n: number): number {
     return -1;
 }
 
-console.log('is in array binary:', binarySearch1([1, 2, 3, 4], 4));
-console.log('is in array binary:', binarySearch1([1, 2, 3, 4], 5));
+// console.log('is in array binary:', binarySearch1([1, 2, 3, 4], 4));
+// console.log('is in array binary:', binarySearch1([1, 2, 3, 4], 5));
 
 
 function binarySearch(array: Array<number>, startIndex: number, endIndex: number, value?: number): number | boolean {
@@ -45,7 +45,11 @@ function binarySearch(array: Array<number>, startIndex: number, endIndex: number
         return binarySearch(array, middleIndex + 1, endIndex);
     } 
 }
-console.log('is in array binary recursion:', binarySearch([-121, 2, 3, 4, 5, 71, 102], 0, 6, 4));
+// console.log('is in array binary recursion:', binarySearch([-121, 2, 3, 4, 5, 71, 102], 0, 6, 4));
+
+
+
+
 
 function sqrtIntNaive(number: number) {
     if (number == 0 || number == 1) return number;
@@ -61,7 +65,15 @@ function sqrtIntNaive(number: number) {
     return index;
 }
 
+console.time();
 console.log('square naive', sqrtIntNaive(9));
+console.timeEnd();
+
+
+ 
+
+ 
+
 
 function sqrtInt(number:number) {
     if (number == 0 || number == 1) return number;
@@ -84,7 +96,18 @@ function sqrtInt(number:number) {
     }
     return ans;
 }
-sqrtInt(9);
+
+console.time();
+console.log('square smarter', sqrtInt(9));
+console.timeEnd();
+
+
+
+
+
+
+
+
 
 function sqrtDouble(number:number) {
     const threshold = 0.1;
@@ -102,7 +125,7 @@ function sqrtDouble(number:number) {
     }
     return middle
 }
-console.log(sqrtDouble(9)); // 3.0234375
+// console.log(sqrtDouble(9)); // 3.0234375
 
 function findTwoSumNaive(array:Array<number>, sum:number) {
     for (let i = 0, arrayLength = array.length; i < arrayLength; i++) {
@@ -132,7 +155,7 @@ function findTwoSum(array:Array<number>, sum:number):boolean {
     return false;
 }
 
-console.log(findTwoSum([1, 2, 3],5));
+// console.log(findTwoSum([1, 2, 3],5));
 
 function findOnlyOnce(arr:Array<number>, low:number, high:number):number | null {
     if (low > high) {
