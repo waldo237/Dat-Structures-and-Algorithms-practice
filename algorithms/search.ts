@@ -92,7 +92,7 @@ function sqrtInt(number:number) {
             ans = mid;
         } else {
             end = mid - 1; // use the lower section
-        }
+        } 
     }
     return ans;
 }
