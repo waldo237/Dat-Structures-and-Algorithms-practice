@@ -1,0 +1,126 @@
+
+.widget.woocommerce.widget_shopping_cart{
+	border-radius: 10px;
+}
+
+.search-field, .button, .added_to_cart, button.menu-toggle{
+	border-radius: 50px;
+}
+
+.si-header-widgets .si-header-widget:not(.si-header-widget__button) .si-icon {
+	font-size: 1.8em;
+	color:#015772;
+	transition: .5s  ease-in-out all;
+}
+
+
+/* 
+.site-description{
+    position: relative;
+
+    text-shadow: -15px 5px 20px #ced0d3;
+    user-select: none;
+    text-transform: uppercase;
+
+    transition: all 0.25s ease-out;
+	font-weight: 100 !important;
+	color:#015772 !important;
+}
+.site-description:hover {
+    text-shadow: -16px 6px 15px #ced0d3;
+}
+	
+	 */
+	
+	
+	
+.landing-title{
+	margin: 1em auto;
+}
+.site-description{
+	font-weight: 700;
+	}
+
+.landing-btn a{
+	padding: 15px 55px;
+	background:#015772;
+/* 	font-weight: 300px; */
+	border: solid 1.5px #aa9c6f;
+transition: .5s  ease-in-out all;
+}
+.landing-btn a:hover, .si-header-widgets.si-header-widget:not(.si-header-widget__button).si-icon:hover{
+background: #aa9c6f;
+/* 	border: solid 1.5px #015772; */
+}
+.landing-btn-container{
+	display: flex;
+	align-items: center;
+	justify-content:center;
+
+}
+.landing-btn-container a{
+
+margin: auto;
+}
+ .attachment-full.wp-post-image{
+border-radius: 20px;
+animation: fadeInUpx 3s infinite ease-in-out;
+
+}
+
+.heart-world{
+	animation: rotate 10s infinite ease-in-out;
+
+}
+.heart-world {
+  transition: 0.70s;
+  -webkit-transition: 0.70s;
+  -moz-transition: 0.70s;
+  -ms-transition: 0.70s;
+  -o-transition: 0.70s;
+  margin: auto;
+	overflow-x: hidden;
+}
+
+
+.heart-world:hover {
+  transition: 0.70s;
+  -webkit-transition: 0.70s;
+  -moz-transition: 0.70s;
+  -ms-transition: 0.70s;
+  -o-transition: 0.70s;
+  -webkit-transform: scale(0.8) rotate(180deg) ;
+  -moz-transform:scale(0.8) rotate(180deg);
+  -o-transform: scale(0.8) rotate(180deg) ;
+  -ms-transform: scale(0.8)rotate(180deg);
+  transform: scale(0.8) rotate(180deg);
+}
+
+#sinatra-copyright .si-copyright-widget__text a{
+	display: none;
+}
+#sinatra-copyright .sinatra-social-nav>ul>li>a .si-icon{
+	font-size: 35px;
+}
+#sinatra-copyright .si-copyright-widget:first-child{
+	display: flex;
+	flex-direction: column;
+}
+
+.lhistoire{
+margin: auto;
+}
+
+
+
+.logo-inner img{
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.logo-inner:hover img {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
