@@ -95,7 +95,7 @@ animation: fadeInUpx 3s infinite ease-in-out;
   -ms-transform: scale(0.8)rotate(180deg);
   transform: scale(0.8) rotate(180deg);
 }
-
+ 
 #sinatra-copyright .si-copyright-widget__text a{
 	display: none;
 }
