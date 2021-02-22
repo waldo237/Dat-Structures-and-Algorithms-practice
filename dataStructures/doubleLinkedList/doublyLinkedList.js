@@ -73,6 +73,15 @@ var DoublyLinkedList = /** @class */ (function () {
         }
         return deletedNode;
     };
+    DoublyLinkedList.prototype.removeFirst = function () {
+        if (!this.head) {
+            return null;
+        }
+        var deletedNode = this.head;
+        this.head = this.head.next;
+        this.head.prev = null;
+        return deletedNode;
+    };
     DoublyLinkedList.prototype.reverse = function () {
         if (this.head) {
             var currentNode = this.head, temp = null;
@@ -191,12 +200,12 @@ list.append('tres');
 console.log('the size is', list.size);
 list.append('cuatro');
 list.prepend('zero');
-// list.reverse()
 console.log('the size is', list.size);
-// list.removeFirst();
-// list.removeFirst();
+list.removeFirst();
 list.remove('zero');
 console.log('the size is', list.size);
 list.reverse();
+list.removeFirst();
+list.removeFirst();
 list.print();
 // console.log(list.tail)

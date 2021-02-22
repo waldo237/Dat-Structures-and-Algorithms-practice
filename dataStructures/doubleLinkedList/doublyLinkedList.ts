@@ -79,6 +79,16 @@ class DoublyLinkedList<T>{
         return deletedNode;
     }
 
+    public removeFirst():DoublyLinkedListNode<T> | null{
+        if(!this.head){
+            return null;
+        }
+        let deletedNode:DoublyLinkedListNode<T> | null = this.head;
+        this.head = this.head.next;
+        this.head!.prev = null;
+        return deletedNode;
+    }
+
     public reverse(): void {
         if (this.head) {
             let currentNode: DoublyLinkedListNode<T> | null = this.head, 
@@ -93,6 +103,8 @@ class DoublyLinkedList<T>{
             this.head = this.tail;
         }
     }
+
+
     public print(): void {
         let currentNode: DoublyLinkedListNode<T> | null;
         currentNode = this.head;
@@ -218,14 +230,15 @@ list.append('tres')
 console.log('the size is', list.size)
 list.append('cuatro')
 list.prepend('zero')
-// list.reverse()
+
 console.log('the size is', list.size)
-// list.removeFirst();
-// list.removeFirst();
+list.removeFirst();
 list.remove('zero')
 console.log('the size is', list.size)
 
 list.reverse();
+list.removeFirst();
+list.removeFirst();
 list.print();
 
 // console.log(list.tail)
