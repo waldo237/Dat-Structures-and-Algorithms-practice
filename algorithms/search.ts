@@ -101,14 +101,6 @@ console.time();
 console.log('square smarter', sqrtInt(9));
 console.timeEnd();
 
-
-
-
-
-
-
-
-
 function sqrtDouble(number:number) {
     const threshold = 0.1;
     //9 try middle,
