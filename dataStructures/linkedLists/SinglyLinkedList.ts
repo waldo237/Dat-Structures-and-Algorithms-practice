@@ -59,14 +59,14 @@ class SinglyLinkedList {
         let deletedNode: SinglyLinkedListNode | null = null;
         let currentNode: SinglyLinkedListNode | null = this.head;
 
-        if (currentNode.data === data) {
+        if (currentNode &&currentNode.data === data) {
             deletedNode = currentNode;
             this.head = currentNode.next;
             return deletedNode;
         }
 
         while (currentNode) {
-            if (currentNode.next!.data === data) {
+            if (currentNode.next?.data === data) {
                 deletedNode = currentNode.next;
                 this.head!.next = currentNode.next!.next;
                 return deletedNode;
@@ -133,18 +133,25 @@ class SinglyLinkedList {
         this.head = this.tail;
     }
 }
+(function namespace() {
+const list = new SinglyLinkedList();
+list.append('uno')
+list.append('dos')
+list.append('dos')
+list.append('tres')
+list.append('cuatro')
+list.append('cinco')
+list.prepend('zero');
+list.delete('uno')
+list.delete('dos')
+list.delete('dos')
+list.delete('tres')
+list.delete('cuatro')
+list.delete('cinco')
+list.delete('zdelete')
 
-const single = new SinglyLinkedList();
+// Promise.resolve(console.log(list.delete('zero')))
+console.log(JSON.stringify(list))
+console.log(list.print());
 
-single.append('uno')
-single.append('dos')
-single.append('tres')
-single.append('cuatro')
-single.prepend('zero');
-single.reverseList();
-// single.deleteHead();
-// single.deleteHead();
-// single.deleteHead();
-single.print();
-// console.log("head", single.head)
-// console.log("tail", single.tail)
+})()

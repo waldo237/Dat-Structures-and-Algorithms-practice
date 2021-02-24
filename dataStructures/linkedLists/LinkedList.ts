@@ -1,53 +1,58 @@
-class LinkedListNode<T>{
-    public next: LinkedListNode<T> | null;
+class LinkedListNode<T> {
     public data: T | null;
-
-    constructor(data:T | null, next: LinkedListNode<T> | null = null) {
-        this.next = next;
+    public next: LinkedListNode<T> | null
+    constructor(data: T | null, next: LinkedListNode<T> | null) {
         this.data = data;
+        this.next = next;
     }
 }
 
-class LinkedList <T>{
-    public head:  LinkedListNode<T> | null;
-    public tail:  LinkedListNode<T> | null;
+class LinkedList<T>{
+    head: LinkedListNode<T> | null = null;
+    tail: LinkedListNode<T> | null = null;
     constructor() {
-        this.head = null;
-        this.tail = null;
+
     }
 
-    public append(data:T):void{
+    /**
+     * append
+     * @param {T} data
+     */
+    public append(data: T): void {
         const newNode = new LinkedListNode(data, null);
-        if(!this.head){
+
+        if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
-        }else{
+        } else {
             this.tail!.next = newNode;
             this.tail = newNode;
         }
     }
 
     /**
-     * @function prepend add a value to the beginning of the list
-     * @param {T}data the value you want to add to the beginning
+     * prepend
+     * @param {T} data
      */
-    public prepend(data:T):void {
-        const newNode = new LinkedListNode(data, this.head) //add the head to the next value
+    public prepend(data: T): void {
+        const newNode = new LinkedListNode(data, this.head);
         this.head = newNode;
-        if(!this.tail){
+        if (!this.tail) {
             this.tail = newNode;
         }
+
     }
 
     /**
-     * search: finds the first value that is specified in the parameters
-     * @param {T} value value that is being queried
+     * search
+     * @param {T} value
      */
-    public search(value:T):Array<T> | null {
-        let currentNode = this.head, results:Array<T>=[];
+    public search(value: T): Array<T> {
+        let currentNode = this.head, results: Array<T> = [];
+
         while (currentNode) {
-            if(currentNode.data === value){
-            results.push(currentNode.data);
+            if (currentNode.data === value) {
+                results.push(currentNode.data);
             }
             currentNode = currentNode.next;
         }
@@ -56,57 +61,68 @@ class LinkedList <T>{
 
     /**
      * delete
-     * @param {T} value the data that needs to be deleted.
-     * @returns {string} message indicating the results of the operation
+     * @param {T} value
      */
-    public delete(value:T):string {
-        let deletedData:Array<T> = [];
-        if(!this.head) return `There are not values in the list`;
-        
-        if(this.head.data === value){
-            if(this.head === this.tail){
-                deletedData.push(this.head.data);
-                this.head, this.tail = null;
-            }else{
-                deletedData.push(this.head.data);
-                this.head = this.head.next;
-            }
+    public delete(value: T) {
+        let currentNode: LinkedListNode<T> | null = this.head,
+         results: Array<T> = [];
+
+        if (!this.head) {
+            return null
         }
-    
 
+        if (currentNode?.data === value) {
+            results.push(currentNode.data)
+            this.head = currentNode.next;
+        }
 
-        let currentNode = this.head;
-        while (currentNode?.next) {
-
-            if(currentNode?.next.data === value){
-                deletedData.push(currentNode.next.data);
-                currentNode.next =  currentNode.next.next;
-                console.log(`this is a delete value: ${JSON.stringify(currentNode)}`)
+        while (currentNode) {
+            if (currentNode.next?.data === value) {
+                currentNode.next = currentNode.next?.next;
                 
-                if(currentNode.next === this.tail){
-                    
-                    this.tail!.next= null;
-                    this.tail = currentNode;
-                    
-                }
+                // if(!currentNode.next?.next && currentNode.next === this.tail){
+                //     this.tail =   null;
+                // }
             }
+            
             currentNode = currentNode.next;
-          
+            
         }
-
-        return (deletedData.length)?`deleted values: ${deletedData.join(', ')}`:`${value} was not found in the list`;
+        return results;
     }
- 
+    
+    public print(): void {
+        let currentNode:LinkedListNode<T> | null = this.head;
+
+        while (currentNode) {
+            console.log(currentNode.data);
+            currentNode = currentNode.next;
+        }
+    }
+
 }
 
 (function namespace() {
-    const list = new LinkedList<number>(); 
-    list.append(1)
-    list.append(2)
-    list.append(2)
-    list.append(2)
-    list.delete(2)
-    console.log(list.delete(2));
-    console.log(JSON.stringify(list));
-    
+    const list = new LinkedList<string>();
+    list.append('uno')
+    list.append('dos')
+    list.append('dos')
+    list.append('tres')
+    list.append('cuatro')
+    list.append('cinco')
+    list.prepend('zero');
+    list.delete('uno')
+    // list.delete('dos')
+    // list.delete('dos')
+    list.delete('tres')
+    list.delete('cuatro')
+    list.delete('cinco')
+    list.delete('zero')
+
+
+    // Promise.resolve(console.log(list.delete('zero')))
+    console.log(JSON.stringify(list))
+    console.log(list.print())
+        ;
+
 })()

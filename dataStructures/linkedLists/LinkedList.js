@@ -1,9 +1,8 @@
 "use strict";
 var LinkedListNode = /** @class */ (function () {
     function LinkedListNode(data, next) {
-        if (next === void 0) { next = null; }
-        this.next = next;
         this.data = data;
+        this.next = next;
     }
     return LinkedListNode;
 }());
@@ -12,6 +11,10 @@ var LinkedList = /** @class */ (function () {
         this.head = null;
         this.tail = null;
     }
+    /**
+     * append
+     * @param {T} data
+     */
     LinkedList.prototype.append = function (data) {
         var newNode = new LinkedListNode(data, null);
         if (!this.head) {
@@ -24,19 +27,19 @@ var LinkedList = /** @class */ (function () {
         }
     };
     /**
-     * @function prepend add a value to the beginning of the list
-     * @param {T}data the value you want to add to the beginning
+     * prepend
+     * @param {T} data
      */
     LinkedList.prototype.prepend = function (data) {
-        var newNode = new LinkedListNode(data, this.head); //add the head to the next value
+        var newNode = new LinkedListNode(data, this.head);
         this.head = newNode;
         if (!this.tail) {
             this.tail = newNode;
         }
     };
     /**
-     * search: finds the first value that is specified in the parameters
-     * @param {T} value value that is being queried
+     * search
+     * @param {T} value
      */
     LinkedList.prototype.search = function (value) {
         var currentNode = this.head, results = [];
@@ -50,47 +53,55 @@ var LinkedList = /** @class */ (function () {
     };
     /**
      * delete
-     * @param {T} value the data that needs to be deleted.
-     * @returns {string} message indicating the results of the operation
+     * @param {T} value
      */
     LinkedList.prototype.delete = function (value) {
-        var deletedData = [];
-        if (!this.head)
-            return "There are not values in the list";
-        if (this.head.data === value) {
-            if (this.head === this.tail) {
-                deletedData.push(this.head.data);
-                this.head, this.tail = null;
-            }
-            else {
-                deletedData.push(this.head.data);
-                this.head = this.head.next;
-            }
+        var _a, _b;
+        var currentNode = this.head, results = [];
+        if (!this.head) {
+            return null;
         }
-        var currentNode = this.head;
-        while (currentNode === null || currentNode === void 0 ? void 0 : currentNode.next) {
-            if ((currentNode === null || currentNode === void 0 ? void 0 : currentNode.next.data) === value) {
-                deletedData.push(currentNode.next.data);
-                currentNode.next = currentNode.next.next;
-                console.log("this is a delete value: " + JSON.stringify(currentNode));
-                if (currentNode.next === this.tail) {
-                    this.tail.next = null;
-                    this.tail = currentNode;
-                }
+        if ((currentNode === null || currentNode === void 0 ? void 0 : currentNode.data) === value) {
+            results.push(currentNode.data);
+            this.head = currentNode.next;
+        }
+        while (currentNode) {
+            if (((_a = currentNode.next) === null || _a === void 0 ? void 0 : _a.data) === value) {
+                currentNode.next = (_b = currentNode.next) === null || _b === void 0 ? void 0 : _b.next;
+                // if(!currentNode.next?.next && currentNode.next === this.tail){
+                //     this.tail =   null;
+                // }
             }
             currentNode = currentNode.next;
         }
-        return (deletedData.length) ? "deleted values: " + deletedData.join(', ') : value + " was not found in the list";
+        return results;
+    };
+    LinkedList.prototype.print = function () {
+        var currentNode = this.head;
+        while (currentNode) {
+            console.log(currentNode.data);
+            currentNode = currentNode.next;
+        }
     };
     return LinkedList;
 }());
 (function namespace() {
     var list = new LinkedList();
-    list.append(1);
-    list.append(2);
-    list.append(2);
-    list.append(2);
-    list.delete(2);
-    console.log(list.delete(2));
+    list.append('uno');
+    list.append('dos');
+    list.append('dos');
+    list.append('tres');
+    list.append('cuatro');
+    list.append('cinco');
+    list.prepend('zero');
+    list.delete('uno');
+    // list.delete('dos')
+    // list.delete('dos')
+    list.delete('tres');
+    list.delete('cuatro');
+    list.delete('cinco');
+    list.delete('zero');
+    // Promise.resolve(console.log(list.delete('zero')))
     console.log(JSON.stringify(list));
+    console.log(list.print());
 })();

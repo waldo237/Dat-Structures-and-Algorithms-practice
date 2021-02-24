@@ -46,18 +46,19 @@ var SinglyLinkedList = /** @class */ (function () {
     };
     ;
     SinglyLinkedList.prototype.delete = function (data) {
+        var _a;
         if (!this.head) {
             return null;
         }
         var deletedNode = null;
         var currentNode = this.head;
-        if (currentNode.data === data) {
+        if (currentNode && currentNode.data === data) {
             deletedNode = currentNode;
             this.head = currentNode.next;
             return deletedNode;
         }
         while (currentNode) {
-            if (currentNode.next.data === data) {
+            if (((_a = currentNode.next) === null || _a === void 0 ? void 0 : _a.data) === data) {
                 deletedNode = currentNode.next;
                 this.head.next = currentNode.next.next;
                 return deletedNode;
@@ -116,16 +117,23 @@ var SinglyLinkedList = /** @class */ (function () {
     };
     return SinglyLinkedList;
 }());
-var single = new SinglyLinkedList();
-single.append('uno');
-single.append('dos');
-single.append('tres');
-single.append('cuatro');
-single.prepend('zero');
-single.reverseList();
-// single.deleteHead();
-// single.deleteHead();
-// single.deleteHead();
-single.print();
-// console.log("head", single.head)
-// console.log("tail", single.tail)
+(function namespace() {
+    var list = new SinglyLinkedList();
+    list.append('uno');
+    list.append('dos');
+    list.append('dos');
+    list.append('tres');
+    list.append('cuatro');
+    list.append('cinco');
+    list.prepend('zero');
+    list.delete('uno');
+    list.delete('dos');
+    list.delete('dos');
+    list.delete('tres');
+    list.delete('cuatro');
+    list.delete('cinco');
+    list.delete('zdelete');
+    // Promise.resolve(console.log(list.delete('zero')))
+    console.log(JSON.stringify(list));
+    console.log(list.print());
+})();
