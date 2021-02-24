@@ -118,7 +118,7 @@ class DoublyLinkedList<T>{
     }
 }
 
-
+ 
 
 const list = new DoublyLinkedList<string>();
 console.log('the size is', list.size)
