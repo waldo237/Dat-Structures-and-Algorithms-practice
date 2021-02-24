@@ -96,11 +96,11 @@ class LinkedList <T>{
 
         return (deletedData.length)?`deleted values: ${deletedData.join(', ')}`:`${value} was not found in the list`;
     }
-
+ 
 }
 
 (function namespace() {
-    const list = new LinkedList<number>();
+    const list = new LinkedList<number>(); 
     list.append(1)
     list.append(2)
     list.append(2)
