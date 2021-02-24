@@ -56,10 +56,45 @@ class LinkedList <T>{
 
     /**
      * delete
-     * @param
+     * @param {T} value the data that needs to be deleted.
+     * @returns {string} message indicating the results of the operation
      */
-    public delete() {
+    public delete(value:T):string {
+        let deletedData:Array<T> = [];
+        if(!this.head) return `There are not values in the list`;
         
+        if(this.head.data === value){
+            if(this.head === this.tail){
+                deletedData.push(this.head.data);
+                this.head, this.tail = null;
+            }else{
+                deletedData.push(this.head.data);
+                this.head = this.head.next;
+            }
+        }
+    
+
+
+        let currentNode = this.head;
+        while (currentNode?.next) {
+
+            if(currentNode?.next.data === value){
+                deletedData.push(currentNode.next.data);
+                currentNode.next =  currentNode.next.next;
+                console.log(`this is a delete value: ${JSON.stringify(currentNode)}`)
+                
+                if(currentNode.next === this.tail){
+                    
+                    this.tail!.next= null;
+                    this.tail = currentNode;
+                    
+                }
+            }
+            currentNode = currentNode.next;
+          
+        }
+
+        return (deletedData.length)?`deleted values: ${deletedData.join(', ')}`:`${value} was not found in the list`;
     }
 
 }
@@ -67,9 +102,11 @@ class LinkedList <T>{
 (function namespace() {
     const list = new LinkedList<number>();
     list.append(1)
-    list.prepend(5)
-    list.prepend(2)
-    list.prepend(2)
-    console.log(list.search(5))
+    list.append(2)
+    list.append(2)
+    list.append(2)
+    list.delete(2)
+    console.log(list.delete(2));
+    console.log(JSON.stringify(list));
     
 })()
