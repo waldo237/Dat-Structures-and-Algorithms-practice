@@ -37,13 +37,13 @@
             if (this.head === null) {
                 return false;
             }
-            let currentNode = this.head;
+            let currentNode: SinglyLinkedListNode<T> | null = this.head;
             if (currentNode?.data === value) {
                 this.head = currentNode.next;
                 this.size--;
             } else {
                 let prev = currentNode;
-                while (currentNode?.next) {
+                while (currentNode) {
                     if (currentNode.data === value) {
                         prev!.next = currentNode.next;
                         prev = currentNode;
@@ -54,11 +54,9 @@
                         prev = currentNode;
                         currentNode = currentNode.next;
                     }
-                    if (currentNode.data === value) {
-                        prev!.next = null;
-                        this.size--;
-                    }
+               
                 }
+             
             }
             return false;
         }
@@ -79,7 +77,7 @@
         sll1.insert('doce'); // linked list is now: 12 -> 1 -> null
         sll1.insert('vente'); // linked list is now: 20 -> 12 -> 1 -> null
         sll1.insert('otros'); // linked list is now: 20 -> 12 -> 1 -> null
-        sll1.remove(12); // linked list is now: 20 -> 1 -> null
+        sll1.remove('uno'); // linked list is now: 20 -> 1 -> null
         sll1.remove(20); // linked list is now: 1 -> null 
         sll1.removeHead(); // linked list is now:  12 -> 1 -> null
         // console.log(JSON.stringify(sll1))

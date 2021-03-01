@@ -1,198 +1,215 @@
-"use strict";
 (function nameSpace() {
-    var SinglyLinkedListNode = /** @class */ (function () {
-        function SinglyLinkedListNode(data) {
+    class SinglyLinkedListNode<T>{
+        public data: T;
+        public next: SinglyLinkedListNode<T> | null;
+        constructor(data: T) {
             this.data = data;
             this.next = null;
         }
-        return SinglyLinkedListNode;
-    }());
-    var SinglyLinkedList = /** @class */ (function () {
-        function SinglyLinkedList() {
+    }
+
+    class SinglyLinkedList<T> {
+        public head: SinglyLinkedListNode<T> | null;
+        public size: number = 0;
+        constructor() {
             this.head = null;
-            this.size = 0;
         }
-        SinglyLinkedList.prototype.isEmpty = function () {
-            return this.size === 0;
-        };
-        SinglyLinkedList.prototype.insert = function (data) {
+        /**
+         * insert
+         */
+        public insert(data: T): void {
+            const newNode = new SinglyLinkedListNode(data);
             if (this.head === null) {
-                this.head = new SinglyLinkedListNode(data);
+                this.head = newNode;
+                this.size++;
+            } else {
+                newNode.next = this.head;
+                this.head = newNode;
                 this.size++;
             }
-            else {
-                var temp = this.head;
-                this.head = new SinglyLinkedListNode(data);
-                this.head.next = temp;
-                this.size++;
-            }
-        };
-        SinglyLinkedList.prototype.remove = function (value) {
+        }
+        /**
+         * remove
+         */
+        public remove(value: T): boolean {
             if (this.head === null) {
                 return false;
             }
-            var currentNode = this.head;
-            if ((currentNode === null || currentNode === void 0 ? void 0 : currentNode.data) === value) {
+            let currentNode: SinglyLinkedListNode<T> | null = this.head;
+            if (currentNode.data === value) {
                 this.head = currentNode.next;
                 this.size--;
             }
-            else {
-                var prev = currentNode;
-                while (currentNode) {
-                    if (currentNode.data === value) {
-                        prev.next = currentNode.next;
-                        prev = currentNode;
-                        currentNode = currentNode.next;
-                        this.size--;
-                        break;
-                    }
-                    else {
-                        prev = currentNode;
-                        currentNode = currentNode.next;
-                    }
+
+            let prev = currentNode;
+            while (currentNode) {
+                if (currentNode.data === value) {
+                    prev!.next = currentNode.next;
+                    prev = currentNode;
+                    currentNode = currentNode.next;
+                    this.size--;
+                    break;
                 }
+                prev = currentNode;
+                currentNode = currentNode.next;
             }
-            return false;
-        };
-        SinglyLinkedList.prototype.removeHead = function () {
-            var deletedNode = null;
-            if (this.head !== null) {
-                deletedNode = this.head.data;
-                this.head = this.head.next;
+            return true;
+        }
+
+        /**
+         * remove
+         */
+        public removeHead(): boolean {
+            if(!this.head){
+                return false;
+            }else{
+                this.head  = this.head.next;
                 this.size--;
             }
-            return deletedNode;
-        };
-        return SinglyLinkedList;
-    }());
+            return true;
+        }
+    }
+
+
     (function name() {
-        var sll1 = new SinglyLinkedList();
+        const sll1 = new SinglyLinkedList();
         sll1.insert('uno'); // linked list is now:  1 -> null
         sll1.insert('doce'); // linked list is now: 12 -> 1 -> null
         sll1.insert('vente'); // linked list is now: 20 -> 12 -> 1 -> null
         sll1.insert('otros'); // linked list is now: 20 -> 12 -> 1 -> null
-        sll1.remove('uno'); // linked list is now: 20 -> 1 -> null
-        sll1.remove(20); // linked list is now: 1 -> null 
+        sll1.remove('doce'); // linked list is now: 20 -> 1 -> null
+        sll1.remove('uno'); // linked list is now: 1 -> null 
         sll1.removeHead(); // linked list is now:  12 -> 1 -> null
-        // console.log(JSON.stringify(sll1))
-    })();
-    var DoublyLinkedListNode = /** @class */ (function () {
-        function DoublyLinkedListNode(data) {
+        console.log(JSON.stringify(sll1))
+    })()
+
+    class DoublyLinkedListNode<T>{
+        public prev: DoublyLinkedListNode<T> | null;
+        public next: DoublyLinkedListNode<T> | null;
+        public data: T;
+
+        constructor(data: T) {
             this.data = data;
             this.prev = null;
             this.next = null;
         }
-        return DoublyLinkedListNode;
-    }());
-    var DoublyLinkedList = /** @class */ (function () {
-        function DoublyLinkedList() {
+    }
+
+    class DoublyLinkedList<T> {
+        public head: DoublyLinkedListNode<T> | null;
+        public tail: DoublyLinkedListNode<T> | null;
+        public size: number;
+        constructor() {
             this.head = null;
             this.tail = null;
             this.size = 0;
         }
-        DoublyLinkedList.prototype.isEmpty = function () {
+
+        public isEmpty(): boolean {
             return this.size === 0;
-        };
-        DoublyLinkedList.prototype.insertAtTail = function (data) {
-            var newNode = new DoublyLinkedListNode(data);
+        }
+
+        public insertAtTail(data: T) {
+            const newNode = new DoublyLinkedListNode(data);
             if (this.tail === null) {
                 this.head = newNode;
                 this.tail = newNode;
-            }
-            else {
+            } else {
                 newNode.prev = this.tail;
                 this.tail.next = newNode;
                 this.tail = newNode;
             }
             this.size++;
-        };
-        DoublyLinkedList.prototype.insertAtHead = function (data) {
-            var newNode = new DoublyLinkedListNode(data);
+        }
+
+        public insertAtHead(data: T) {
+            const newNode = new DoublyLinkedListNode<T>(data);
             if (this.head === null) {
                 this.head = newNode;
                 this.tail = this.head;
-            }
-            else {
+            } else {
                 this.head.prev = newNode;
                 newNode.next = this.head;
                 this.head = newNode;
             }
             this.size++;
-        };
-        DoublyLinkedList.prototype.deleteAtHead = function () {
-            var deletedNode = null;
+        }
+        public deleteAtHead() {
+            let deletedNode = null;
+
             if (this.head === null) {
                 return deletedNode;
-            }
-            else {
+            } else {
                 deletedNode = this.head.data;
                 if (this.head === this.tail) {
                     this.head = null;
                     this.tail = null;
                     this.size--;
-                }
-                else {
+                } else {
                     this.head = this.head.next;
-                    this.head.prev = null;
+                    this.head!.prev = null;
                     this.size--;
                 }
             }
             return deletedNode;
-        };
-        DoublyLinkedList.prototype.deleteAtTail = function () {
-            var _a;
-            var deletedNode = null;
+        }
+        public deleteAtTail() {
+            let deletedNode = null;
+
             if (this.tail === null) {
                 return deletedNode;
-            }
-            else {
-                deletedNode = (_a = this.tail) === null || _a === void 0 ? void 0 : _a.data;
+
+            } else {
+                deletedNode = this.tail?.data;
                 if (this.tail === this.head) {
                     this.head = null;
                     this.tail = null;
                     this.size--;
-                }
-                else {
+                } else {
                     this.tail = this.tail.prev;
-                    this.tail.next = null;
+                    this.tail!.next = null;
                     this.size--;
                 }
             }
             return deletedNode;
-        };
-        DoublyLinkedList.prototype.findStartingHead = function (value) {
-            var currentNode = this.head;
-            var results = [];
-            while (currentNode === null || currentNode === void 0 ? void 0 : currentNode.next) {
+        }
+
+        public findStartingHead(value: T): Array<T> {
+            let currentNode = this.head;
+            let results: Array<T> = [];
+            while (currentNode?.next) {
                 if (currentNode.data === value) {
                     results.push(currentNode.data);
                 }
                 currentNode = currentNode.next;
             }
             return results;
-        };
-        DoublyLinkedList.prototype.findStartingTail = function (value) {
-            var currentNode = this.tail;
-            var results = [];
-            while (currentNode === null || currentNode === void 0 ? void 0 : currentNode.prev) {
+        }
+        public findStartingTail(value: T): Array<T> {
+            let currentNode = this.tail;
+            let results: Array<T> = [];
+            while (currentNode?.prev) {
                 if (currentNode.data === value) {
                     results.push(currentNode.data);
                 }
                 currentNode = currentNode.prev;
             }
             return results;
-        };
-        DoublyLinkedList.prototype.print = function () {
-            var currentNode = this.head;
-            while (currentNode === null || currentNode === void 0 ? void 0 : currentNode.next) {
+        }
+
+        public print(): void {
+            let currentNode = this.head;
+
+            while (currentNode?.next) {
                 currentNode && console.log(currentNode.data);
+
                 currentNode = currentNode.next;
             }
-        };
-        return DoublyLinkedList;
-    }());
+        }
+    }
+
     (function namespace2() {
-        var dll1 = new DoublyLinkedList();
+        const dll1 = new DoublyLinkedList();
         dll1.insertAtHead(10); // ddl1's structure: tail: 10  head: 10 
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
@@ -202,12 +219,23 @@
         // dll1.deleteAtHead();
         // dll1.deleteAtTail();
         // dll1.deleteAtTail();
-        console.log(dll1.findStartingHead(12));
-        console.log(dll1.print());
-        console.log(dll1);
+
+        // console.log(dll1.findStartingHead(12))
+        // console.log(dll1.print())
+        // console.log(dll1)
         // console.log("doublyLinked", dll1);
-    })();
-    function reverseSingleLinkedList(sll) {
+    })()
+
+
+
+
+
+
+
+
+
+
+    function reverseSingleLinkedList<T>(sll: SinglyLinkedList<T>) {
         var node = sll.head;
         var prev = null;
         while (node) {
@@ -220,17 +248,19 @@
         }
         return node;
     }
+
+
     // delete duplicates in unsorted linkedlist
-    function deleteDuplicateInUnsortedSll(sll1) {
+    function deleteDuplicateInUnsortedSll<T>(sll1: SinglyLinkedList<T>) {
         var track = [];
+
         var temp = sll1.head;
         var prev = null;
         while (temp) {
             if (track.indexOf(temp.data) >= 0) {
-                prev.next = temp.next;
+                prev!.next = temp.next;
                 sll1.size--;
-            }
-            else {
+            } else {
                 track.push(temp.data);
                 prev = temp;
             }
@@ -238,9 +268,13 @@
         }
         console.log(temp);
     }
+
+
     // //delete duplicates in unsorted linkedlist
     // function deleteDuplicateInUnsortedSllBest<T>(sll1:SinglyLinkedList<T>) {
     //     let track = {};
+
+
     //     let temp:SinglyLinkedListNode<T> | null= sll1.head;
     //     let prev = null;
     //     while (temp) {
@@ -253,8 +287,12 @@
     //                 prev = temp;
     //             }
     //             temp = temp.next;
+
     //         }
     //     }
     //     console.log(temp);
     // }
-}());
+
+}())
+
+

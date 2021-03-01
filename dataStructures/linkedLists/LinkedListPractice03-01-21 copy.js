@@ -9,59 +9,62 @@
     }());
     var SinglyLinkedList = /** @class */ (function () {
         function SinglyLinkedList() {
-            this.head = null;
             this.size = 0;
+            this.head = null;
         }
-        SinglyLinkedList.prototype.isEmpty = function () {
-            return this.size === 0;
-        };
+        /**
+         * insert
+         */
         SinglyLinkedList.prototype.insert = function (data) {
+            var newNode = new SinglyLinkedListNode(data);
             if (this.head === null) {
-                this.head = new SinglyLinkedListNode(data);
+                this.head = newNode;
                 this.size++;
             }
             else {
-                var temp = this.head;
-                this.head = new SinglyLinkedListNode(data);
-                this.head.next = temp;
+                newNode.next = this.head;
+                this.head = newNode;
                 this.size++;
             }
         };
+        /**
+         * remove
+         */
         SinglyLinkedList.prototype.remove = function (value) {
             if (this.head === null) {
                 return false;
             }
             var currentNode = this.head;
-            if ((currentNode === null || currentNode === void 0 ? void 0 : currentNode.data) === value) {
+            if (currentNode.data === value) {
                 this.head = currentNode.next;
                 this.size--;
             }
-            else {
-                var prev = currentNode;
-                while (currentNode) {
-                    if (currentNode.data === value) {
-                        prev.next = currentNode.next;
-                        prev = currentNode;
-                        currentNode = currentNode.next;
-                        this.size--;
-                        break;
-                    }
-                    else {
-                        prev = currentNode;
-                        currentNode = currentNode.next;
-                    }
+            var prev = currentNode;
+            while (currentNode) {
+                if (currentNode.data === value) {
+                    prev.next = currentNode.next;
+                    prev = currentNode;
+                    currentNode = currentNode.next;
+                    this.size--;
+                    break;
                 }
+                prev = currentNode;
+                currentNode = currentNode.next;
             }
-            return false;
+            return true;
         };
+        /**
+         * remove
+         */
         SinglyLinkedList.prototype.removeHead = function () {
-            var deletedNode = null;
-            if (this.head !== null) {
-                deletedNode = this.head.data;
+            if (!this.head) {
+                return false;
+            }
+            else {
                 this.head = this.head.next;
                 this.size--;
             }
-            return deletedNode;
+            return true;
         };
         return SinglyLinkedList;
     }());
@@ -71,10 +74,10 @@
         sll1.insert('doce'); // linked list is now: 12 -> 1 -> null
         sll1.insert('vente'); // linked list is now: 20 -> 12 -> 1 -> null
         sll1.insert('otros'); // linked list is now: 20 -> 12 -> 1 -> null
-        sll1.remove('uno'); // linked list is now: 20 -> 1 -> null
-        sll1.remove(20); // linked list is now: 1 -> null 
+        sll1.remove('doce'); // linked list is now: 20 -> 1 -> null
+        sll1.remove('uno'); // linked list is now: 1 -> null 
         sll1.removeHead(); // linked list is now:  12 -> 1 -> null
-        // console.log(JSON.stringify(sll1))
+        console.log(JSON.stringify(sll1));
     })();
     var DoublyLinkedListNode = /** @class */ (function () {
         function DoublyLinkedListNode(data) {
@@ -202,9 +205,9 @@
         // dll1.deleteAtHead();
         // dll1.deleteAtTail();
         // dll1.deleteAtTail();
-        console.log(dll1.findStartingHead(12));
-        console.log(dll1.print());
-        console.log(dll1);
+        // console.log(dll1.findStartingHead(12))
+        // console.log(dll1.print())
+        // console.log(dll1)
         // console.log("doublyLinked", dll1);
     })();
     function reverseSingleLinkedList(sll) {
