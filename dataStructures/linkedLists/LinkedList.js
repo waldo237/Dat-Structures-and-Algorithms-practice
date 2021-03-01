@@ -105,11 +105,3 @@ var LinkedList = /** @class */ (function () {
     console.log(JSON.stringify(list));
     console.log(list.print());
 })();
-
-
-if (authenticate) {
-    loginToPorta();
- }
-
- 
- authenticate && loginToPorta();
