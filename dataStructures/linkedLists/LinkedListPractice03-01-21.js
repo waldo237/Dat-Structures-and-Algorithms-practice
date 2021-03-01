@@ -97,7 +97,7 @@
         DoublyLinkedList.prototype.isEmpty = function () {
             return this.size === 0;
         };
-        DoublyLinkedList.prototype.insertAtHead = function (data) {
+        DoublyLinkedList.prototype.insertAtTail = function (data) {
             var newNode = new DoublyLinkedListNode(data);
             if (this.tail === null) {
                 this.head = newNode;
@@ -110,27 +110,26 @@
             }
             this.size++;
         };
-        DoublyLinkedList.prototype.insertAtTail = function (data) {
+        DoublyLinkedList.prototype.insertAtHead = function (data) {
             var newNode = new DoublyLinkedListNode(data);
             if (this.head === null) {
                 this.head = newNode;
-                this.tail = newNode;
+                this.tail = this.head;
             }
             else {
-                newNode.next = this.head;
                 this.head.prev = newNode;
+                newNode.next = this.head;
                 this.head = newNode;
             }
             this.size++;
         };
         DoublyLinkedList.prototype.deleteAtHead = function () {
-            var _a;
             var deletedNode = null;
             if (this.head === null) {
                 return deletedNode;
             }
             else {
-                deletedNode = (_a = this.head) === null || _a === void 0 ? void 0 : _a.data;
+                deletedNode = this.head.data;
                 if (this.head === this.tail) {
                     this.head = null;
                     this.tail = null;
@@ -201,17 +200,15 @@
         dll1.insertAtHead(10); // ddl1's structure: tail: 10  head: 10 
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
-        dll1.insertAtHead(20); // ddl1's structure: tail: 10  head: 20
-        dll1.insertAtTail(30); // ddl1's structure: tail: 30  head: 20
-        dll1.insertAtTail(12); // ddl1's structure: tail: 30  head: 20
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        console.log(dll1.findStartingTail(12));
+        // dll1.insertAtHead(20); // ddl1's structure: tail: 10  head: 20
+        // dll1.insertAtTail(30); // ddl1's structure: tail: 30  head: 20
+        // dll1.insertAtTail(12); // ddl1's structure: tail: 30  head: 20
+        // dll1.deleteAtHead();
+        // dll1.deleteAtTail();
+        // dll1.deleteAtTail();
+        console.log(dll1.findStartingHead(12));
         console.log(dll1.print());
-        console.log(dll1.size);
+        console.log(dll1);
         // console.log("doublyLinked", dll1);
     })();
     function reverseSingleLinkedList(sll) {

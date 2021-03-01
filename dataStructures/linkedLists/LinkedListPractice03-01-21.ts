@@ -111,7 +111,7 @@
             return this.size === 0;
         }
 
-        public insertAtHead(data: T) {
+        public insertAtTail(data: T) {
             const newNode = new DoublyLinkedListNode(data);
             if (this.tail === null) {
                 this.head = newNode;
@@ -124,14 +124,14 @@
             this.size++;
         }
 
-        public insertAtTail(data: T) {
-            const newNode = new DoublyLinkedListNode(data);
+        public insertAtHead(data: T) {
+            const newNode = new DoublyLinkedListNode<T>(data);
             if (this.head === null) {
                 this.head = newNode;
-                this.tail = newNode;
+                this.tail = this.head;
             } else {
-                newNode.next = this.head;
                 this.head.prev = newNode;
+                newNode.next = this.head;
                 this.head = newNode;
             }
             this.size++;
@@ -142,7 +142,7 @@
             if (this.head === null) {
                 return deletedNode;
             } else {
-                deletedNode = this.head?.data;
+                deletedNode = this.head.data;
                 if (this.head === this.tail) {
                     this.head = null;
                     this.tail = null;
@@ -215,17 +215,16 @@
         dll1.insertAtHead(10); // ddl1's structure: tail: 10  head: 10 
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
         dll1.insertAtHead(12); // ddl1's structure: tail: 10  head: 12
-        dll1.insertAtHead(20); // ddl1's structure: tail: 10  head: 20
-        dll1.insertAtTail(30); // ddl1's structure: tail: 30  head: 20
-        dll1.insertAtTail(12); // ddl1's structure: tail: 30  head: 20
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        dll1.deleteAtTail();
-        console.log(dll1.findStartingTail(12))
+        // dll1.insertAtHead(20); // ddl1's structure: tail: 10  head: 20
+        // dll1.insertAtTail(30); // ddl1's structure: tail: 30  head: 20
+        // dll1.insertAtTail(12); // ddl1's structure: tail: 30  head: 20
+        // dll1.deleteAtHead();
+        // dll1.deleteAtTail();
+        // dll1.deleteAtTail();
+    
+        console.log(dll1.findStartingHead(12))
         console.log(dll1.print())
-        console.log(dll1.size)
+        console.log(dll1)
         // console.log("doublyLinked", dll1);
     })()
 
