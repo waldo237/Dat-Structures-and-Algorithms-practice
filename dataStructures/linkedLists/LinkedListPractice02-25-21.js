@@ -211,22 +211,23 @@
         }
         console.log(temp);
     }
-    //delete duplicates in unsorted linkedlist
-    function deleteDuplicateInUnsortedSllBest(sll1) {
-        var track = {};
-        var temp = sll1.head;
-        var prev = null;
-        while (temp) {
-            if (track[temp.data]) {
-                prev.next = temp.next;
-                sll1.size--;
-            }
-            else {
-                track[temp.data] = true;
-                prev = temp;
-            }
-            temp = temp.next;
-        }
-        console.log(temp);
-    }
+    // //delete duplicates in unsorted linkedlist
+    // function deleteDuplicateInUnsortedSllBest<T>(sll1:SinglyLinkedList<T>) {
+    //     let track = {};
+    //     let temp:SinglyLinkedListNode<T> | null= sll1.head;
+    //     let prev = null;
+    //     while (temp) {
+    //         if(temp.data !== null){
+    //             if (track[temp.data]) {
+    //                 prev!.next = temp.next;
+    //                 sll1.size--;
+    //             } else {
+    //                 track[temp.data] = true;
+    //                 prev = temp;
+    //             }
+    //             temp = temp.next;
+    //         }
+    //     }
+    //     console.log(temp);
+    // }
 }());
