@@ -1,4 +1,4 @@
-const { promisify } = require('util')
+
 class Node {
     constructor(value) {
         this.value = value;
