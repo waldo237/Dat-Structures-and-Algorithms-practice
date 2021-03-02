@@ -155,60 +155,61 @@
                 }
             }
         }
-    }
-    BinarySearchTree.prototype.remove = function (value) {
-
-        return deleteRecursively(this._root, value);
-
-        function deleteRecursively(root, value) {
-            if (!root) {
-                return null;
-            } else if (value < root.value) {
-                root.left = deleteRecursively(root.left, value);
-            } else if (value > root.value) {
-                root.right = deleteRecursively(root.right, value);
-            } else {
-                //no child
-                if (!root.left && !root.right) {
-                    return null; // case 1
-                } else if (!root.left) { // case 2
-                    root = root.right;
-                    return root;
-                } else if (!root.right) { // case 2
-                    root = root.left;
-                    return root;
+        public remove (value:T) {
+    
+            return deleteRecursively(this._root, value);
+    
+            function deleteRecursively(root: bstNode<T> | null, value:T) {
+                if (!root) {
+                    return null;
+                } else if (value < root.value) {
+                    root.left = deleteRecursively(root.left, value);
+                } else if (value > root.value) {
+                    root.right = deleteRecursively(root.right, value);
                 } else {
-                    var temp = findMin(root.right); // case 3
-                    root.value = temp.value;
-                    root.right = deleteRecursively(root.right, temp.value);
-                    return root;
+                    //no child
+                    if (!root.left && !root.right) {
+                        return null; // case 1
+                    } else if (!root.left) { // case 2
+                        root = root.right;
+                        return root;
+                    } else if (!root.right) { // case 2
+                        root = root.left;
+                        return root;
+                    } else {
+                        var temp = findMin(root.right); // case 3
+                        root.value = temp!.value;
+                        root.right = deleteRecursively(root.right, temp!.value);
+                        return root;
+                    }
                 }
+                return root;
             }
-            return root;
+    
+            function findMin(root: bstNode<T> | null) {
+                while (root?.left) {
+                    root = root.left;
+                }
+                return root;
+            }
         }
 
-        function findMin(root) {
-            while (root.left) {
-                root = root.left;
-            }
-            return root;
-        }
-    }
-    BinarySearchTree.prototype.findNode = function (value) {
-        var currentRoot = this._root,
-            found = false;
-        while (currentRoot) {
-            if (currentRoot.value > value) {
-                currentRoot = currentRoot.left;
-            } else if (currentRoot.value < value) {
-                currentRoot = currentRoot.right;
-            } else {
-                //we've found the node
-                found = true;
-                break;
-            }
-        }
-        return found;
+        public  findNode (value:T):boolean {
+              let currentRoot = this._root,
+                  found = false;
+              while (currentRoot) {
+                  if (currentRoot.value > value) {
+                      currentRoot = currentRoot.left;
+                  } else if (currentRoot.value < value) {
+                      currentRoot = currentRoot.right;
+                  } else {
+                      //we've found the node
+                      found = true;
+                      break;
+                  }
+              }
+              return found;
+          }
     }
     var bst1 = new BinarySearchTree();
     bst1.insert(1);
@@ -218,25 +219,34 @@
     bst1.findNode(5); // false
 
 
-    function AVLTree(value) {
-        this.left = null;
-        this.right = null;
-        this.value = value;
-        this.depth = 1;
-    }
 
-    AVLTree.prototype.setDepthBasedOnChildren = function () {
-        if (this.node == null) {
+    class AVLTree<T> {
+        public left : bstNode<T> | null;
+        public right: bstNode<T> | null;
+        public value: T;
+        public depth: number;
+
+        constructor(value:T){
+            this.left = null;
+            this.right = null;
+            this.value = value;
             this.depth = 1;
-        }
 
-        if (this.left != null) {
-            this.depth = this.left.depth + 1;
         }
-        if (this.right != null && this.depth <= this.right.depth) {
-            this.depth = this.right.depth + 1;
+       public setDepthBasedOnChildren() {
+            if (this.node == null) {
+                this.depth = 1;
+            }
+    
+            if (this.left != null) {
+                this.depth = this.left.depth + 1;
+            }
+            if (this.right != null && this.depth <= this.right.depth) {
+                this.depth = this.right.depth + 1;
+            }
         }
     }
+
     AVLTree.prototype.rotateLL = function () {
 
         var valueBefore = this.value;

@@ -139,89 +139,92 @@
                 }
             }
         };
-        return BinarySearchTree;
-    }());
-    BinarySearchTree.prototype.remove = function (value) {
-        return deleteRecursively(this._root, value);
-        function deleteRecursively(root, value) {
-            if (!root) {
-                return null;
-            }
-            else if (value < root.value) {
-                root.left = deleteRecursively(root.left, value);
-            }
-            else if (value > root.value) {
-                root.right = deleteRecursively(root.right, value);
-            }
-            else {
-                //no child
-                if (!root.left && !root.right) {
-                    return null; // case 1
+        BinarySearchTree.prototype.remove = function (value) {
+            return deleteRecursively(this._root, value);
+            function deleteRecursively(root, value) {
+                if (!root) {
+                    return null;
                 }
-                else if (!root.left) { // case 2
-                    root = root.right;
-                    return root;
+                else if (value < root.value) {
+                    root.left = deleteRecursively(root.left, value);
                 }
-                else if (!root.right) { // case 2
-                    root = root.left;
-                    return root;
+                else if (value > root.value) {
+                    root.right = deleteRecursively(root.right, value);
                 }
                 else {
-                    var temp = findMin(root.right); // case 3
-                    root.value = temp.value;
-                    root.right = deleteRecursively(root.right, temp.value);
-                    return root;
+                    //no child
+                    if (!root.left && !root.right) {
+                        return null; // case 1
+                    }
+                    else if (!root.left) { // case 2
+                        root = root.right;
+                        return root;
+                    }
+                    else if (!root.right) { // case 2
+                        root = root.left;
+                        return root;
+                    }
+                    else {
+                        var temp = findMin(root.right); // case 3
+                        root.value = temp.value;
+                        root.right = deleteRecursively(root.right, temp.value);
+                        return root;
+                    }
+                }
+                return root;
+            }
+            function findMin(root) {
+                while (root === null || root === void 0 ? void 0 : root.left) {
+                    root = root.left;
+                }
+                return root;
+            }
+        };
+        BinarySearchTree.prototype.findNode = function (value) {
+            var currentRoot = this._root, found = false;
+            while (currentRoot) {
+                if (currentRoot.value > value) {
+                    currentRoot = currentRoot.left;
+                }
+                else if (currentRoot.value < value) {
+                    currentRoot = currentRoot.right;
+                }
+                else {
+                    //we've found the node
+                    found = true;
+                    break;
                 }
             }
-            return root;
-        }
-        function findMin(root) {
-            while (root.left) {
-                root = root.left;
-            }
-            return root;
-        }
-    };
-    BinarySearchTree.prototype.findNode = function (value) {
-        var currentRoot = this._root, found = false;
-        while (currentRoot) {
-            if (currentRoot.value > value) {
-                currentRoot = currentRoot.left;
-            }
-            else if (currentRoot.value < value) {
-                currentRoot = currentRoot.right;
-            }
-            else {
-                //we've found the node
-                found = true;
-                break;
-            }
-        }
-        return found;
-    };
+            return found;
+        };
+        return BinarySearchTree;
+    }());
     var bst1 = new BinarySearchTree();
     bst1.insert(1);
     bst1.insert(3);
     bst1.insert(2);
     bst1.findNode(3); // true
     bst1.findNode(5); // false
-    function AVLTree(value) {
-        this.left = null;
-        this.right = null;
-        this.value = value;
-        this.depth = 1;
-    }
-    AVLTree.prototype.setDepthBasedOnChildren = function () {
-        if (this.node == null) {
+    var AVLTree = /** @class */ (function () {
+        function AVLTree(value) {
+            this.left = null;
+            this.right = null;
+            this.value = value;
             this.depth = 1;
         }
-        if (this.left != null) {
-            this.depth = this.left.depth + 1;
-        }
-        if (this.right != null && this.depth <= this.right.depth) {
-            this.depth = this.right.depth + 1;
-        }
-    };
+        AVLTree.prototype.setDepthBasedOnChildren = function () {
+            if (this.node == null) {
+                this.depth = 1;
+            }
+            if (this.left != null) {
+                this.depth = this.left.depth + 1;
+            }
+            if (this.right != null && this.depth <= this.right.depth) {
+                this.depth = this.right.depth + 1;
+            }
+        };
+        return AVLTree;
+    }());
     AVLTree.prototype.rotateLL = function () {
         var valueBefore = this.value;
         var rightBefore = this.right;
