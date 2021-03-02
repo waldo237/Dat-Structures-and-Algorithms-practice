@@ -21,8 +21,7 @@
             traverseInOrderHelper(this._root);
 
             function traverseInOrderHelper(node: bstNode<T> | null) {
-                if (!node)
-                    return;
+                if (!node) return;
                 traverseInOrderHelper(node.left);
                 console.log(node.value);
                 traverseInOrderHelper(node.right);
@@ -231,8 +230,8 @@
             this.right = null;
             this.value = value;
             this.depth = 1;
-
         }
+
         public setDepthBasedOnChildren() {
             if (!this.value) {
                 this.depth = 1;
