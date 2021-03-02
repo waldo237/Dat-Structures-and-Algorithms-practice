@@ -118,7 +118,7 @@
         constructor() {
             this._root = null;
         }
-        public insert(value:T): void {
+        public insert(value: T): void {
             var thisNode = {
                 left: null,
                 right: null,
@@ -155,11 +155,11 @@
                 }
             }
         }
-        public remove (value:T) {
-    
+        public remove(value: T) {
+
             return deleteRecursively(this._root, value);
-    
-            function deleteRecursively(root: bstNode<T> | null, value:T) {
+
+            function deleteRecursively(root: bstNode<T> | null, value: T) {
                 if (!root) {
                     return null;
                 } else if (value < root.value) {
@@ -185,7 +185,7 @@
                 }
                 return root;
             }
-    
+
             function findMin(root: bstNode<T> | null) {
                 while (root?.left) {
                     root = root.left;
@@ -194,22 +194,22 @@
             }
         }
 
-        public  findNode (value:T):boolean {
-              let currentRoot = this._root,
-                  found = false;
-              while (currentRoot) {
-                  if (currentRoot.value > value) {
-                      currentRoot = currentRoot.left;
-                  } else if (currentRoot.value < value) {
-                      currentRoot = currentRoot.right;
-                  } else {
-                      //we've found the node
-                      found = true;
-                      break;
-                  }
-              }
-              return found;
-          }
+        public findNode(value: T): boolean {
+            let currentRoot = this._root,
+                found = false;
+            while (currentRoot) {
+                if (currentRoot.value > value) {
+                    currentRoot = currentRoot.left;
+                } else if (currentRoot.value < value) {
+                    currentRoot = currentRoot.right;
+                } else {
+                    //we've found the node
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
     }
     var bst1 = new BinarySearchTree();
     bst1.insert(1);
@@ -221,23 +221,23 @@
 
 
     class AVLTree<T> {
-        public left : bstNode<T> | null;
-        public right: bstNode<T> | null;
+        public left: AVLTree<T> | null;
+        public right: AVLTree<T> | null;
         public value: T;
         public depth: number;
 
-        constructor(value:T){
+        constructor(value: T) {
             this.left = null;
             this.right = null;
             this.value = value;
             this.depth = 1;
 
         }
-       public setDepthBasedOnChildren() {
-            if (this.node == null) {
+        public setDepthBasedOnChildren() {
+            if (!this.value) {
                 this.depth = 1;
             }
-    
+
             if (this.left != null) {
                 this.depth = this.left.depth + 1;
             }
@@ -245,130 +245,133 @@
                 this.depth = this.right.depth + 1;
             }
         }
-    }
 
-    AVLTree.prototype.rotateLL = function () {
+        public rotateLL(): void {
 
-        var valueBefore = this.value;
-        var rightBefore = this.right;
-        this.value = this.left.value;
+            let valueBefore = this.value;
+            let rightBefore = this.right;
+            this.value = this.left!.value;
 
-        this.right = this.left;
-        this.left = this.left.left;
-        this.right.left = this.right.right;
-        this.right.right = rightBefore;
-        this.right.value = valueBefore;
+            this.right = this.left;
+            this.left = this.left!.left;
+            this.right!.left = this.right!.right;
+            this.right!.right = rightBefore;
+            this.right!.value = valueBefore;
 
-        this.right.setDepthBasedOnChildren();
-        this.setDepthBasedOnChildren();
-    };
-    AVLTree.prototype.rotateRR = function () {
-        // the right side is too long => rotate from the right (_not_ rightwards)
-        var valueBefore = this.value;
-        var leftBefore = this.left;
-        this.value = this.right.value;
-
-        this.left = this.right;
-        this.right = this.right.right;
-        this.left.right = this.left.left;
-        this.left.left = leftBefore;
-        this.left.value = valueBefore;
-
-        this.left.setDepthBasedOnChildren();
-        this.setDepthBasedOnChildren();
-    }
-    AVLTree.prototype.balance = function () {
-        var ldepth = this.left == null ? 0 : this.left.depth;
-        var rdepth = this.right == null ? 0 : this.right.depth;
-
-        if (ldepth > rdepth + 1) {
-            // LR or LL rotation
-            var lldepth = this.left.left == null ? 0 : this.left.left.depth;
-            var lrdepth = this.left.right == null ? 0 : this.left.right.depth;
-
-            if (lldepth < lrdepth) {
-                // LR rotation consists of a RR rotation of the left child
-                this.left.rotateRR();
-                // plus a LL rotation of this node, which happens anyway
-            }
-            this.rotateLL();
-        } else if (ldepth + 1 < rdepth) {
-            // RR or RL rorarion
-            var rrdepth = this.right.right == null ? 0 : this.right.right.depth;
-            var rldepth = this.right.left == null ? 0 : this.right.left.depth;
-
-            if (rldepth > rrdepth) {
-                // RR rotation consists of a LL rotation of the right child
-                this.right.rotateLL();
-                // plus a RR rotation of this node, which happens anyway
-            }
-            this.rotateRR();
+            this.right!.setDepthBasedOnChildren();
+            this.setDepthBasedOnChildren();
         }
-    }
 
-    AVLTree.prototype.insert = function (value) {
-        var childInserted = false;
-        if (value == this.value) {
-            return false; // should be all unique
-        } else if (value < this.value) {
-            if (this.left == null) {
-                this.left = new AVLTree(value);
-                childInserted = true;
-            } else {
-                childInserted = this.left.insert(value);
-                if (childInserted == true) this.balance();
-            }
-        } else if (value > this.value) {
-            if (this.right == null) {
-                this.right = new AVLTree(value);
-                childInserted = true;
-            } else {
-                childInserted = this.right.insert(value);
+        public rotateRR(): void {
+            // the right side is too long => rotate from the right (_not_ rightwards)
+            var valueBefore = this.value;
+            var leftBefore = this.left;
+            this.value = this.right!.value;
 
-                if (childInserted == true) this.balance();
+            this.left = this.right;
+            this.right = this.right!.right;
+            this.left!.right = this.left!.left;
+            this.left!.left = leftBefore;
+            this.left!.value = valueBefore;
+
+            this.left!.setDepthBasedOnChildren();
+            this.setDepthBasedOnChildren();
+        }
+
+        public balance(): void {
+            var ldepth = this.left == null ? 0 : this.left.depth;
+            var rdepth = this.right == null ? 0 : this.right.depth;
+
+            if (ldepth > rdepth + 1) {
+                // LR or LL rotation
+                var lldepth = this.left?.left == null ? 0 : this.left.left.depth;
+                var lrdepth = this.left?.right == null ? 0 : this.left?.right.depth;
+
+                if (lldepth < lrdepth) {
+                    // LR rotation consists of a RR rotation of the left child
+                    this.left?.rotateRR();
+                    // plus a LL rotation of this node, which happens anyway
+                }
+                this.rotateLL();
+            } else if (ldepth + 1 < rdepth) {
+                // RR or RL rorarion
+                var rrdepth = this.right?.right == null ? 0 : this.right.right.depth;
+                var rldepth = this.right?.left == null ? 0 : this.right.left.depth;
+
+                if (rldepth > rrdepth) {
+                    // RR rotation consists of a LL rotation of the right child
+                    this.right?.rotateLL();
+                    // plus a RR rotation of this node, which happens anyway
+                }
+                this.rotateRR();
             }
         }
-        if (childInserted == true) this.setDepthBasedOnChildren();
-        return childInserted;
-    }
-
-    AVLTree.prototype.remove = function (value) {
-        return deleteRecursively(this, value);
-
-        function deleteRecursively(root, value) {
-            if (!root) {
-                return null;
-            } else if (value < root.value) {
-                root.left = deleteRecursively(root.left, value);
-            } else if (value > root.value) {
-                root.right = deleteRecursively(root.right, value);
-            } else {
-                //no child
-                if (!root.left && !root.right) {
-                    return null; // case 1
-                } else if (!root.left) {
-                    root = root.right;
-                    return root;
-                } else if (!root.right) {
-                    root = root.left;
-                    return root;
+        public insert(value: T): boolean {
+            var childInserted = false;
+            if (value == this.value) {
+                return false; // should be all unique
+            } else if (value < this.value) {
+                if (this.left == null) {
+                    this.left = new AVLTree(value);
+                    childInserted = true;
                 } else {
-                    var temp = findMin(root.right);
-                    root.value = temp.value;
-                    root.right = deleteRecursively(root.right, temp.value);
-                    return root;
+                    childInserted = this.left.insert(value);
+                    if (childInserted == true) this.balance();
+                }
+            } else if (value > this.value) {
+                if (this.right == null) {
+                    this.right = new AVLTree(value);
+                    childInserted = true;
+                } else {
+                    childInserted = this.right.insert(value);
+
+                    if (childInserted == true) this.balance();
                 }
             }
-            root.setDepthBasedOnChildren(); // ONLY DIFFERENCE from the BST one
-            return root;
+            if (childInserted == true) this.setDepthBasedOnChildren();
+            return childInserted;
         }
 
-        function findMin(root) {
-            while (root.left) root = root.left;
-            return root;
+        public remove(value: T) {
+            return deleteRecursively(this, value);
+
+            function deleteRecursively(root: AVLTree<T> | null, value: T) {
+                if (!root) {
+                    return null;
+                } else if (value < root.value) {
+                    root.left = deleteRecursively(root.left, value);
+                } else if (value > root.value) {
+                    root.right = deleteRecursively(root.right, value);
+                } else {
+                    //no child
+                    if (!root.left && !root.right) {
+                        return null; // case 1
+                    } else if (!root.left) {
+                        root = root.right;
+                        return root;
+                    } else if (!root.right) {
+                        root = root.left;
+                        return root;
+                    } else {
+                        var temp = findMin(root.right);
+                        root.value = temp!.value;
+                        root.right = deleteRecursively(root.right, temp!.value);
+                        return root;
+                    }
+                }
+                root.setDepthBasedOnChildren(); // ONLY DIFFERENCE from the BST one
+                return root;
+            }
+
+            function findMin(root: AVLTree<T> | null) {
+                while (root?.left) root = root.left;
+                return root;
+            }
         }
     }
-    var avlTest = new AVLTree(1, '');
+
+
+    var avlTest = new AVLTree(1);
     avlTest.insert(2);
     avlTest.insert(3);
     avlTest.insert(4);
