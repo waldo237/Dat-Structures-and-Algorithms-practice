@@ -284,7 +284,7 @@
             if (ldepth > rdepth + 1) {
                 // LR or LL rotation
                 var lldepth = this.left?.left == null ? 0 : this.left.left.depth;
-                var lrdepth = this.left?.right == null ? 0 : this.left?.right.depth;
+                var lrdepth = this.left?.right == null ? 0 : this.left.right.depth;
 
                 if (lldepth < lrdepth) {
                     // LR rotation consists of a RR rotation of the left child
@@ -306,7 +306,7 @@
             }
         }
         public insert(value: T): boolean {
-            var childInserted = false;
+            let childInserted = false;
             if (value == this.value) {
                 return false; // should be all unique
             } else if (value < this.value) {
@@ -352,7 +352,7 @@
                         root = root.left;
                         return root;
                     } else {
-                        var temp = findMin(root.right);
+                        let temp = findMin(root.right);
                         root.value = temp!.value;
                         root.right = deleteRecursively(root.right, temp!.value);
                         return root;
