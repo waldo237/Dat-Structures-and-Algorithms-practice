@@ -110,49 +110,48 @@ class AVLTree<T>{
       node.right = this.removeNode(node.right, key);
     } else {
       // node is the node to be deleted
-      if(node.left === null && node.right === null){
+      if (node.left === null && node.right === null) {
         node = null;
-      }else if(node.left == null && node.right != null){
+      } else if (node.left == null && node.right != null) {
         node = node.right;
-      }else if(node.left != null && node.right == null){
+      } else if (node.left != null && node.right == null) {
         node = node.left;
-      }else{
+      } else {
         // node has 2 children, get the in-order successor
         const inOrderSuccessor = this.minNode(node.right);
         node.key = inOrderSuccessor!.key;
         node.right = this.removeNode(node.right, inOrderSuccessor!.key);
 
       }
-      if(node === null){
+      if (node === null) {
         return node;
       }
       const balanceState = this.getBalanceFactor(node);
 
-      if(balanceState === BalanceFactor.UNBALANCED_LEFT){
-        if(
+      if (balanceState === BalanceFactor.UNBALANCED_LEFT) {
+        if (
           this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
           this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
-        ){
+        ) {
           return this.rotationLL(node);
         }
-        if(this.getBalanceFactor(node.left)=== BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT){
+        if (this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
           return this.rotationLR(node.left);
         }
       }
-      if(balanceState === BalanceFactor.UNBALANCED_RIGHT){
-        if(
+      if (balanceState === BalanceFactor.UNBALANCED_RIGHT) {
+        if (
           this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
           this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
-        ){
+        ) {
           return this.rotationRR(node);
         }
-        if(this.getBalanceFactor(node.right)=== BalanceFactor.SLIGHTLY_UNBALANCED_LEFT){
+        if (this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
           return this.rotationRL(node.right);
         }
       }
       return node;
     }
-
   }
   minNode(node: AVLNode<T> | null) {
     let current = node;
