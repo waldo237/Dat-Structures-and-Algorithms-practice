@@ -44,12 +44,18 @@ export function defaultToString(item: any): string {
   return item.toString();
 }
 
+
+
+
 export function swap(array: any[], a: number, b: number) {
   /* const temp = array[a];
   array[a] = array[b];
   array[b] = temp; */
   [array[a], array[b]] = [array[b], array[a]];
 }
+
+
+
 
 export function reverseCompare<T>(compareFn: ICompareFunction<T>): ICompareFunction<T> {
   return (a, b) => compareFn(b, a);

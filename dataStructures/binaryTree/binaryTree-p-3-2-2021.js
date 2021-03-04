@@ -249,27 +249,27 @@
             this.setDepthBasedOnChildren();
         };
         AVLTree.prototype.balance = function () {
-            var _a, _b, _c, _d, _e, _f, _g;
+            var _a, _b, _c, _d, _e, _f;
             var ldepth = this.left == null ? 0 : this.left.depth;
             var rdepth = this.right == null ? 0 : this.right.depth;
             if (ldepth > rdepth + 1) {
                 // LR or LL rotation
                 var lldepth = ((_a = this.left) === null || _a === void 0 ? void 0 : _a.left) == null ? 0 : this.left.left.depth;
-                var lrdepth = ((_b = this.left) === null || _b === void 0 ? void 0 : _b.right) == null ? 0 : (_c = this.left) === null || _c === void 0 ? void 0 : _c.right.depth;
+                var lrdepth = ((_b = this.left) === null || _b === void 0 ? void 0 : _b.right) == null ? 0 : this.left.right.depth;
                 if (lldepth < lrdepth) {
                     // LR rotation consists of a RR rotation of the left child
-                    (_d = this.left) === null || _d === void 0 ? void 0 : _d.rotateRR();
+                    (_c = this.left) === null || _c === void 0 ? void 0 : _c.rotateRR();
                     // plus a LL rotation of this node, which happens anyway
                 }
                 this.rotateLL();
             }
             else if (ldepth + 1 < rdepth) {
                 // RR or RL rorarion
-                var rrdepth = ((_e = this.right) === null || _e === void 0 ? void 0 : _e.right) == null ? 0 : this.right.right.depth;
-                var rldepth = ((_f = this.right) === null || _f === void 0 ? void 0 : _f.left) == null ? 0 : this.right.left.depth;
+                var rrdepth = ((_d = this.right) === null || _d === void 0 ? void 0 : _d.right) == null ? 0 : this.right.right.depth;
+                var rldepth = ((_e = this.right) === null || _e === void 0 ? void 0 : _e.left) == null ? 0 : this.right.left.depth;
                 if (rldepth > rrdepth) {
                     // RR rotation consists of a LL rotation of the right child
-                    (_g = this.right) === null || _g === void 0 ? void 0 : _g.rotateLL();
+                    (_f = this.right) === null || _f === void 0 ? void 0 : _f.rotateLL();
                     // plus a RR rotation of this node, which happens anyway
                 }
                 this.rotateRR();

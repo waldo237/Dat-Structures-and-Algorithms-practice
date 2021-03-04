@@ -15,7 +15,7 @@ export default class CircularLinkedList<T> extends LinkedList<T> {
       this.head = node;
     } else {
       current = this.getElementAt(this.size() - 1);
-      current.next = node;
+      current!.next = node;
     }
 
     // set node.next to head - to have circular list
@@ -39,12 +39,12 @@ export default class CircularLinkedList<T> extends LinkedList<T> {
           current = this.getElementAt(this.size());
           // update last element
           this.head = node;
-          current.next = this.head;
+          current!.next = this.head;
         }
       } else {
         const previous = this.getElementAt(index - 1);
-        node.next = previous.next;
-        previous.next = node;
+        node.next = previous!.next;
+        previous!.next = node;
       }
       this.count++;
       return true;
