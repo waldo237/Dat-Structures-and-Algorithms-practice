@@ -8,7 +8,7 @@ enum BalanceFactor {
   BALANCED = 3,
   SLIGHTLY_UNBALANCED_LEFT = 4,
   UNBALANCED_LEFT = 5
-}
+} 
 
 export default class AVLTree<T> extends BinarySearchTree<T> {
 

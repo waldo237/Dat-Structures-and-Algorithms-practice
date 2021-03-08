@@ -50,7 +50,7 @@ var AVLTree = /** @class */ (function (_super) {
      *    / \                             / \
      *   c   d                           d   e
      *
-     * @param node Node<T>
+     * @param node Node<T> 
      */
     AVLTree.prototype.rotationLL = function (node) {
         var tmp = node.left;
