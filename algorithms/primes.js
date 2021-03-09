@@ -23,6 +23,7 @@ const isPrime2= (n)=> {
         }
     }
     return true;
+   
 }
 
 // O(sqrt(n))
