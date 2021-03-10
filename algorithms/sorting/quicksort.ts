@@ -52,5 +52,5 @@ const quick = function (
 };
 
 export const quickSort = (array: any[], compareFn = defaultCompare) => {
-  return quick(array, 0, array.length - 1, compareFn);
+  return quick(array, 0, array.length - 1, compareFn); 
 };
