@@ -38,10 +38,7 @@ export default class Stack<T> {
   }
 
   clear() {
-    /* while (!this.isEmpty()) {
-      this.pop();
-    } */
-
+    
     this.items = {};
     this.count = 0;
   }
