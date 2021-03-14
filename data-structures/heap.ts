@@ -19,7 +19,7 @@ export class MinHeap<T> {
     }
     return Math.floor((index - 1) / 2);
   }
-
+ 
   size() {
     return this.heap.length;
   }

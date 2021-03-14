@@ -31,9 +31,6 @@ var Stack = /** @class */ (function () {
         return this.count;
     };
     Stack.prototype.clear = function () {
-        /* while (!this.isEmpty()) {
-          this.pop();
-        } */
         this.items = {};
         this.count = 0;
     };
