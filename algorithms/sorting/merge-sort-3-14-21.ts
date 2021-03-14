@@ -1,24 +1,23 @@
 
-function merge<T>(left: T[], right: T[]): Array<T | undefined>{
+function merge<T>(left: T[], right: T[]): Array<T | undefined> {
   let sorted: Array<T | undefined> = [];
   while (left.length && right.length) {
-    if (left[0] < right[0]){
+    if (left[0] < right[0]) {
       sorted.push(left.shift());
-    }else {
+    } else {
       sorted.push(right.shift());
     };
   }
   return sorted.concat(left.slice().concat(right.slice()))
 }
 
-function mergeSort<T>(array: Array<T | undefined>) {
+function mergeSort<T>(array: Array<T | undefined>): Array<T | undefined> {
   if (array.length <= 1) return array;
-    const { length } = array;
-    const middle = Math.floor(length / 2),
+  const { length } = array;
+  const middle = Math.floor(length / 2),
     left = mergeSort(array.slice(0, middle)),
     right = mergeSort(array.slice(middle, length));
-  
-  
+
   return merge(left, right);
 }
 
