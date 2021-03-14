@@ -11,7 +11,7 @@ export default class Graph {
       this.vertices.push(v);
       this.adjList.set(v, []); // initialize adjacency list with array as well;
     }
-  }
+   } 
 
   addEdge(a: string | number, b: string | number) {
     if (!this.adjList.get(a)) {
