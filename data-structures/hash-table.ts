@@ -45,8 +45,8 @@ export default class HashTable<K, V> {
   get(key: K) {
     const valuePair = this.table[this.hashCode(key)];
     return valuePair == null ? undefined : valuePair.value;
-  }
-
+   } 
+ 
   remove(key: K) {
     const hash = this.hashCode(key);
     const valuePair = this.table[hash];
