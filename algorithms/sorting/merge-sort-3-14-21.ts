@@ -11,6 +11,7 @@ function merge<T>(left: T[], right: T[]): Array<T | undefined> {
   return sorted.concat(left.slice().concat(right.slice()))
 }
 
+
 function mergeSort<T>(array: Array<T | undefined>): Array<T | undefined> {
   if (array.length <= 1) return array;
   const { length } = array;
@@ -20,6 +21,7 @@ function mergeSort<T>(array: Array<T | undefined>): Array<T | undefined> {
 
   return merge(left, right);
 }
+
 
 let arr: Array<number> = [2, 6, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 54, 63, 77];
 
