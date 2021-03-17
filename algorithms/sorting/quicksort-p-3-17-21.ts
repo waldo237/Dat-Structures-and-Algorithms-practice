@@ -24,6 +24,28 @@ function partition(array: any[], left: number, right: number) {
   return i;
 };
 
+function partitionP<T>(items: T[], left: number, right: number) {
+  const pivot = items[Math.floor(left + right / 2)];
+  let L = left;
+  let R = right;
+
+  while (L <= R) {
+    while (items[L] < pivot) {
+      L++;
+    }
+
+    while (items[R] > pivot) {
+      R--;
+    }
+    
+    if (L <= R) {
+      swap(items, L, R);
+      L++;
+      R--;
+    }
+  }
+}
+
 function quick<T>(array: T[], left: number, right: number) {
   let index;
 
