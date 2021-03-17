@@ -1,26 +1,30 @@
+(function namespace() {
 
-function merge<T>(left: T[], right: T[]): Array<T | undefined> {
-  let sorted: Array<T | undefined> = [];
-  while (left.length && right.length) {
-     (left[0] < right[0])
-     ?sorted.push(left.shift())
-     :sorted.push(right.shift());
-  };
-  return  sorted.concat(...left, ...right)
-}
+  function merge<T>(left: T[], right: T[]): T[] {
+    let sorted = [];
+    while (left.length && right.length) {
+      if (left[0] < right[0]) {
+        sorted.push(left.shift());
+      } else {
+        sorted.push(right.shift());
+      }
+    }
+    return sorted.concat(...left, ...right);
+  }
 
- 
-function mergeSort<T>(array: T[]): Array<T | undefined> {
-  const { length } = array;
-  if (length <= 1) return array;
-  const middle = Math.floor(length / 2),
-    left = mergeSort(array.slice(0, middle)),
-    right = mergeSort(array.slice(middle, length));
+  function mergeSort<T>(arr: T[]):T[] {
+    const { length } = arr;
 
-  return merge(left, right);
-}
+    if (length <= 1) return arr;
+    const middle = Math.floor(length / 2);
+    const left = mergeSort(arr.slice(0, middle));
+    const right = mergeSort(arr.slice(middle, length));
 
+    return merge(left, right);
+  }
 
-let arr: Array<number> = [2, 6, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 54, 63, 77];
+  const array1: Array<number> = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
 
-console.log(mergeSort(arr));
+  console.log(mergeSort(array1));
+
+})()

@@ -19,22 +19,28 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
-function merge(left, right) {
-    var sorted = [];
-    while (left.length && right.length) {
-        (left[0] < right[0])
-            ? sorted.push(left.shift())
-            : sorted.push(right.shift());
+(function namespace() {
+    function merge(left, right) {
+        var sorted = [];
+        while (left.length && right.length) {
+            if (left[0] < right[0]) {
+                sorted.push(left.shift());
+            }
+            else {
+                sorted.push(right.shift());
+            }
+        }
+        return sorted.concat.apply(sorted, __spread(left, right));
     }
-    ;
-    return sorted.concat.apply(sorted, __spread(left, right));
-}
-function mergeSort(array) {
-    var length = array.length;
-    if (length <= 1)
-        return array;
-    var middle = Math.floor(length / 2), left = mergeSort(array.slice(0, middle)), right = mergeSort(array.slice(middle, length));
-    return merge(left, right);
-}
-var arr = [2, 6, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 54, 63, 77];
-console.log(mergeSort(arr));
+    function mergeSort(arr) {
+        var length = arr.length;
+        if (length <= 1)
+            return arr;
+        var middle = Math.floor(length / 2);
+        var left = mergeSort(arr.slice(0, middle));
+        var right = mergeSort(arr.slice(middle, length));
+        return merge(left, right);
+    }
+    var array1 = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
+    console.log(mergeSort(array1));
+})();

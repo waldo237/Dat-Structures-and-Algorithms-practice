@@ -20,6 +20,5 @@ export function mergeSort<T>(array: T[]): T[] {
     const right = mergeSort(array.slice(middle, length));
     array = merge(left, right);
   }
-
   return array;
 }
