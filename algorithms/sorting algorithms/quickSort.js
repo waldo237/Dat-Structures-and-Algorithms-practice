@@ -1,16 +1,16 @@
 
 
 
-function swap(array, index1, index2){
+function swap(array, index1, index2) {
     const temp = array[index1];
     array[index1] = array[index2];
     array[index2] = temp;
 
 }
 function partition(items, left, right) {
-    var pivot   = items[Math.floor((right + left) / 2)], //middle element
-        i       = left, //left pointer
-        j       = right; //right pointer
+    var pivot = items[Math.floor((right + left) / 2)], //middle element
+        i = left, //left pointer
+        j = right; //right pointer
     while (i <= j) {
         while (items[i] < pivot) {
             i++;
@@ -46,6 +46,6 @@ function quickSort(items) {
     return quickSortHelper(items, 0, items.length - 1);
 }
 
-console.log(quickSort([6,1,23,4,2,3]));
+console.log(quickSort([6, 1, 23, 4, 2, 3]));
 
-module.exports = { quickSort, quickSortHelper, partition, swap}
+module.exports = { quickSort, quickSortHelper, partition, swap }
