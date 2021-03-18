@@ -21,24 +21,22 @@ var __spread = (this && this.__spread) || function () {
 };
 (function name() {
     function swap(array, a, b) {
-        var temp = array[a];
-        array[a] = array[b];
-        array[b] = temp;
-        // [array[a], array[b]] = [array[b], array[a]];
+        var _a;
+        _a = __read([array[b], array[a]], 2), array[a] = _a[0], array[b] = _a[1];
     }
     function partition(items, left, right) {
-        var pivot = Math.floor(left + right / 2);
-        var L = left;
-        var R = right;
+        var pivot = items[Math.floor((right + left) / 2)], //middle element
+        L = left, //left pointer
+        R = right; //right pointer
         while (L <= R) {
-            while (items[L] < items[pivot]) {
+            while (items[L] < pivot) {
                 L++;
             }
-            while (items[R] > items[pivot]) {
+            while (items[R] > pivot) {
                 R--;
             }
             if (L <= R) {
-                swap(items, L, R);
+                swap(items, L, R); //swap two elements
                 L++;
                 R--;
             }
@@ -46,14 +44,16 @@ var __spread = (this && this.__spread) || function () {
         return L;
     }
     function quick(items, left, right) {
-        var pivot = partition(items, left, right);
-        if (left < pivot - 1) {
-            quick(items, left, pivot - 1);
+        var pivot;
+        if (items.length > 1) {
+            pivot = partition(items, left, right); //pivot returned from partition
+            if (left < pivot - 1) { //more elements on the left side of the pivot
+                quick(items, left, pivot - 1);
+            }
+            if (pivot < right) { //more elements on the right side of the pivot
+                quick(items, pivot, right);
+            }
         }
-        else if (right > pivot) {
-            quick(items, pivot, right);
-        }
-        ;
         return items;
     }
     function quickSort(items) {
