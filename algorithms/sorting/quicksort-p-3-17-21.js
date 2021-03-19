@@ -15,10 +15,6 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
-};
 (function name() {
     function swap(array, a, b) {
         var _a;
@@ -66,27 +62,8 @@ var __spread = (this && this.__spread) || function () {
     console.timeEnd('quickSort');
 })();
 (function namespace2() {
-    function merge(left, right) {
-        var sorted = [];
-        while (left.length && right.length) {
-            if (left[0] < right[0]) {
-                sorted.push(left.shift());
-            }
-            else {
-                sorted.push(right.shift());
-            }
-        }
-        return sorted.concat.apply(sorted, __spread(left, right));
-    }
-    function mergeSort(arr) {
-        var length = arr.length;
-        if (length <= 1)
-            return arr;
-        var middle = Math.floor(length / 2);
-        var left = arr.slice(0, middle);
-        var right = arr.slice(middle, length);
-        return merge(left, right);
-    }
+    (function (params) {
+    });
     var array1 = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
     console.time('mergeSort');
     console.log(mergeSort(array1));
