@@ -1,29 +1,48 @@
 
 (function name(): void {
 
-  function swap<T>(array: T[], a: number, b: number) {
-    [array[a], array[b]] = [array[b], array[a]];
+  function swap<T>(arr: T[], a: number, b: number) {
+    [arr[a], arr[b]] = [arr[b], arr[a]];
   }
 
-
-  function partition<T>(items: T[], left: number, right: number) {
-    let pivot = items[Math.floor((right + left) / 2)], //middle element
-      L = left, //left pointer
-      R = right; //right pointer
-    while (L <= R) {
-      while (items[L] < pivot) {
-        L++;
+  // function partition<T>(items: T[], left: number, right: number) {
+  //   let pivot = Math.floor((right + left) / 2), //middle element
+  //     L = left, //left pointer
+  //     R = right; //right pointer
+  //   while (L <= R) {
+  //     while (items[L] < items[pivot]) {
+  //       L++;
+  //     }
+  //     while (items[R] > items[pivot]) {
+  //       R--;
+  //     }
+  //     if (L <= R) {
+  //       swap(items, L, R); //swap two elements
+  //       L++;
+  //       R--;
+  //     }
+  //   }
+  //   return L;
+  // }
+  function partition<T>(items: T[], left: number, right: number): number {
+    let pivot = Math.floor((left + right) / 2);
+    let l = left;
+    let r = right;
+    while (l <= r) {
+      while (items[l] < items[pivot]) {
+        l++;
       }
-      while (items[R] > pivot) {
-        R--;
+      while (items[r] > items[pivot]) {
+        r--;
       }
-      if (L <= R) {
-        swap(items, L, R); //swap two elements
-        L++;
-        R--;
+      if (l <= r) {
+        swap(items, l, r);
+        l++;
+        r--;
       }
     }
-    return L;
+    return l
+
   }
 
   function quick<T>(items: T[], left: number, right: number) {
@@ -53,9 +72,27 @@
 
 
 (function namespace2(): void {
-function merge;(params:type) {
-  
-}
+
+  function merge<T>(left: T[], right: T[]): T[] {
+    let sorted: T[] = [];
+    while (left.length && right.length) {
+      if (left[0] < right[0]) {
+        sorted.push(left.shift());
+      } else {
+        sorted.push(right.shift());
+      }
+    }
+    return sorted.concat(...left, ...right);
+  }
+
+  function mergeSort<T>(arr: T[]): T[] {
+    const { length } = arr;
+    if (length <= 1) return arr;
+    const middle = Math.floor(length / 2);
+    const left = mergeSort(arr.slice(0, middle));
+    const right = mergeSort(arr.slice(middle, length));
+    return merge(left, right);
+  }
 
   const array1: Array<number> = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
 

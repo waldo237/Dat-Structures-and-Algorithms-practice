@@ -15,29 +15,52 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 (function name() {
-    function swap(array, a, b) {
+    function swap(arr, a, b) {
         var _a;
-        _a = __read([array[b], array[a]], 2), array[a] = _a[0], array[b] = _a[1];
+        _a = __read([arr[b], arr[a]], 2), arr[a] = _a[0], arr[b] = _a[1];
     }
+    // function partition<T>(items: T[], left: number, right: number) {
+    //   let pivot = Math.floor((right + left) / 2), //middle element
+    //     L = left, //left pointer
+    //     R = right; //right pointer
+    //   while (L <= R) {
+    //     while (items[L] < items[pivot]) {
+    //       L++;
+    //     }
+    //     while (items[R] > items[pivot]) {
+    //       R--;
+    //     }
+    //     if (L <= R) {
+    //       swap(items, L, R); //swap two elements
+    //       L++;
+    //       R--;
+    //     }
+    //   }
+    //   return L;
+    // }
     function partition(items, left, right) {
-        var pivot = items[Math.floor((right + left) / 2)], //middle element
-        L = left, //left pointer
-        R = right; //right pointer
-        while (L <= R) {
-            while (items[L] < pivot) {
-                L++;
+        var pivot = Math.floor((left + right) / 2);
+        var l = left;
+        var r = right;
+        while (l <= r) {
+            while (items[l] < items[pivot]) {
+                l++;
             }
-            while (items[R] > pivot) {
-                R--;
+            while (items[r] > items[pivot]) {
+                r--;
             }
-            if (L <= R) {
-                swap(items, L, R); //swap two elements
-                L++;
-                R--;
+            if (l <= r) {
+                swap(items, l, r);
+                l++;
+                r--;
             }
         }
-        return L;
+        return l;
     }
     function quick(items, left, right) {
         var pivot;
@@ -62,8 +85,27 @@ var __read = (this && this.__read) || function (o, n) {
     console.timeEnd('quickSort');
 })();
 (function namespace2() {
-    (function (params) {
-    });
+    function merge(left, right) {
+        var sorted = [];
+        while (left.length && right.length) {
+            if (left[0] < right[0]) {
+                sorted.push(left.shift());
+            }
+            else {
+                sorted.push(right.shift());
+            }
+        }
+        return sorted.concat.apply(sorted, __spread(left, right));
+    }
+    function mergeSort(arr) {
+        var length = arr.length;
+        if (length <= 1)
+            return arr;
+        var middle = Math.floor(length / 2);
+        var left = mergeSort(arr.slice(0, middle));
+        var right = mergeSort(arr.slice(middle, length));
+        return merge(left, right);
+    }
     var array1 = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
     console.time('mergeSort');
     console.log(mergeSort(array1));
