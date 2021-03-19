@@ -24,25 +24,6 @@ var __spread = (this && this.__spread) || function () {
         var _a;
         _a = __read([arr[b], arr[a]], 2), arr[a] = _a[0], arr[b] = _a[1];
     }
-    // function partition<T>(items: T[], left: number, right: number) {
-    //   let pivot = Math.floor((right + left) / 2), //middle element
-    //     L = left, //left pointer
-    //     R = right; //right pointer
-    //   while (L <= R) {
-    //     while (items[L] < items[pivot]) {
-    //       L++;
-    //     }
-    //     while (items[R] > items[pivot]) {
-    //       R--;
-    //     }
-    //     if (L <= R) {
-    //       swap(items, L, R); //swap two elements
-    //       L++;
-    //       R--;
-    //     }
-    //   }
-    //   return L;
-    // }
     function partition(items, left, right) {
         var pivot = Math.floor((left + right) / 2);
         var l = left;
@@ -65,12 +46,12 @@ var __spread = (this && this.__spread) || function () {
     function quick(items, left, right) {
         var pivot;
         if (items.length > 1) {
-            pivot = partition(items, left, right); //pivot returned from partition
-            if (left < pivot - 1) { //more elements on the left side of the pivot
+            pivot = partition(items, left, right);
+            if (left < pivot - 1) {
                 quick(items, left, pivot - 1);
             }
-            if (pivot < right) { //more elements on the right side of the pivot
-                quick(items, pivot, right);
+            if (right > pivot + 1) {
+                quick(items, pivot + 1, right);
             }
         }
         return items;
