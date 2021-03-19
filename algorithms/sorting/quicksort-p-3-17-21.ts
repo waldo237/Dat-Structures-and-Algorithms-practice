@@ -54,18 +54,9 @@
 
 (function namespace2(): void {
 
-  function merge<T>(left: T[], right: T[]): T[] {
-    let sorted = [];
-    while (left.length && right.length) {
-      if (left[0] < right[0]) {
-        sorted.push(left.shift());
-      } else {
-        sorted.push(right.shift());
-      }
-    }
-    return sorted.concat(...left, ...right);
-  }
-
+function merge<T>(arr:T[], left:T[]) {
+  
+}
   function mergeSort<T>(arr: T[]): T[] {
     const { length } = arr;
 
