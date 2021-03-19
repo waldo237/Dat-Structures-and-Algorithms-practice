@@ -83,8 +83,8 @@ var __spread = (this && this.__spread) || function () {
         if (length <= 1)
             return arr;
         var middle = Math.floor(length / 2);
-        var left = mergeSort(arr.slice(0, middle));
-        var right = mergeSort(arr.slice(middle, length));
+        var left = arr.slice(0, middle);
+        var right = arr.slice(middle, length);
         return merge(left, right);
     }
     var array1 = [5, 43, 8, 3, 1, 9, 1, 3, 2, 7, 23, 32, 25, 63, 52];
