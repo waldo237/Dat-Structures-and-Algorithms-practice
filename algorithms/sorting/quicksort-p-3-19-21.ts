@@ -34,8 +34,8 @@
       if (left < pivot - 1) {
         quick(items, left, pivot - 1);
       }
-      if (right > pivot + 1){
-        quick(items, pivot+1, right);
+      if (right > pivot + 1) {
+        quick(items, pivot + 1, right);
       }
     }
     return items;
