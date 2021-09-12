@@ -1,5 +1,5 @@
-import { defaultToString } from '../util';
-import { ValuePair } from './models/value-pair';
+import { defaultToString } from "../util";
+import { ValuePair } from "./models/value-pair";
 
 export default class Dictionary<K, V> {
   private table: { [key: string]: ValuePair<K, V> };
@@ -41,9 +41,7 @@ export default class Dictionary<K, V> {
   }
 
   keys(): K[] {
-    return this.keyValues().map(
-      (valuePair: ValuePair<K, V>) => valuePair.key
-    );
+    return this.keyValues().map((valuePair: ValuePair<K, V>) => valuePair.key);
   }
 
   keyValues(): ValuePair<K, V>[] {
@@ -74,7 +72,7 @@ export default class Dictionary<K, V> {
 
   toString() {
     if (this.isEmpty()) {
-      return '';
+      return "";
     }
     const valuePairs = this.keyValues();
     let objString = `${valuePairs[0].toString()}`;
