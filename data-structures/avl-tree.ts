@@ -1,17 +1,16 @@
-import { Compare, defaultCompare, ICompareFunction } from '../util';
-import BinarySearchTree from './binary-search-tree';
-import { Node } from './models/node';
+import { Compare, defaultCompare, ICompareFunction } from "../util";
+import BinarySearchTree from "./binary-search-tree";
+import { Node } from "./models/node";
 
 enum BalanceFactor {
   UNBALANCED_RIGHT = 1,
   SLIGHTLY_UNBALANCED_RIGHT = 2,
   BALANCED = 3,
   SLIGHTLY_UNBALANCED_LEFT = 4,
-  UNBALANCED_LEFT = 5
-} 
+  UNBALANCED_LEFT = 5,
+}
 
 export default class AVLTree<T> extends BinarySearchTree<T> {
-
   constructor(protected compareFn: ICompareFunction<T> = defaultCompare) {
     super(compareFn);
   }
@@ -20,7 +19,10 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
     if (node == null) {
       return -1;
     }
-    return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
+    return (
+      Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) +
+      1
+    );
   }
 
   /**
@@ -78,7 +80,8 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
   }
 
   private getBalanceFactor(node: Node<T>) {
-    const heightDifference = this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
+    const heightDifference =
+      this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
     switch (heightDifference) {
       case -2:
         return BalanceFactor.UNBALANCED_RIGHT;
@@ -172,12 +175,16 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
       // Left left case
       if (
         this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
-        this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+        this.getBalanceFactor(node.left) ===
+          BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
       ) {
         return this.rotationLL(node);
       }
       // Left right case
-      if (this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
+      if (
+        this.getBalanceFactor(node.left) ===
+        BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+      ) {
         return this.rotationLR(node.left);
       }
     }
@@ -186,12 +193,16 @@ export default class AVLTree<T> extends BinarySearchTree<T> {
       // Right right case
       if (
         this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
-        this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+        this.getBalanceFactor(node.right) ===
+          BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
       ) {
         return this.rotationRR(node);
       }
       // Right left case
-      if (this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
+      if (
+        this.getBalanceFactor(node.right) ===
+        BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+      ) {
         return this.rotationRL(node.right);
       }
     }

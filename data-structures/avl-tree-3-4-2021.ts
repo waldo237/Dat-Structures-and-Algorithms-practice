@@ -1,14 +1,12 @@
-
 enum BalanceFactor {
   UNBALANCED_RIGHT = 1,
   SLIGHTLY_UNBALANCED_RIGHT = 2,
   BALANCED = 3,
   SLIGHTLY_UNBALANCED_LEFT = 4,
   UNBALANCED_LEFT = 5,
-
 }
 
-class AVLNode<K>{
+class AVLNode<K> {
   left: AVLNode<K> | null;
   right: AVLNode<K> | null;
   constructor(public key: K) {
@@ -17,7 +15,7 @@ class AVLNode<K>{
   }
 }
 
-class AVLTree<T>{
+class AVLTree<T> {
   protected root: AVLNode<T> | null;
 
   constructor() {
@@ -28,7 +26,10 @@ class AVLTree<T>{
     if (node === null) {
       return -1;
     }
-    return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right))
+    return Math.max(
+      this.getNodeHeight(node.left),
+      this.getNodeHeight(node.right)
+    );
   }
 
   private rotationLL(node: AVLNode<T> | null) {
@@ -53,7 +54,8 @@ class AVLTree<T>{
   }
 
   private getBalanceFactor(node: AVLNode<T> | null) {
-    const heightDifference = this.getNodeHeight(node!.left) - this.getNodeHeight(node!.right);
+    const heightDifference =
+      this.getNodeHeight(node!.left) - this.getNodeHeight(node!.right);
 
     switch (heightDifference) {
       case -2:
@@ -101,7 +103,6 @@ class AVLTree<T>{
   }
 
   protected removeNode(node: AVLNode<T> | null, key: T): AVLNode<T> | null {
-
     if (node === null) return null;
 
     if (key < node.key) {
@@ -121,7 +122,6 @@ class AVLTree<T>{
         const inOrderSuccessor = this.minNode(node.right);
         node.key = inOrderSuccessor!.key;
         node.right = this.removeNode(node.right, inOrderSuccessor!.key);
-
       }
       if (node === null) {
         return node;
@@ -131,22 +131,30 @@ class AVLTree<T>{
       if (balanceState === BalanceFactor.UNBALANCED_LEFT) {
         if (
           this.getBalanceFactor(node.left) === BalanceFactor.BALANCED ||
-          this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+          this.getBalanceFactor(node.left) ===
+            BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
         ) {
           return this.rotationLL(node);
         }
-        if (this.getBalanceFactor(node.left) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
+        if (
+          this.getBalanceFactor(node.left) ===
+          BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+        ) {
           return this.rotationLR(node.left);
         }
       }
       if (balanceState === BalanceFactor.UNBALANCED_RIGHT) {
         if (
           this.getBalanceFactor(node.right) === BalanceFactor.BALANCED ||
-          this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+          this.getBalanceFactor(node.right) ===
+            BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
         ) {
           return this.rotationRR(node);
         }
-        if (this.getBalanceFactor(node.right) === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
+        if (
+          this.getBalanceFactor(node.right) ===
+          BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+        ) {
           return this.rotationRL(node.right);
         }
       }
