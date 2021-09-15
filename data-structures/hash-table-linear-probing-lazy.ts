@@ -1,5 +1,5 @@
-import { defaultToString } from '../util';
-import { ValuePairLazy } from './models/value-pair-lazy';
+import { defaultToString } from "../util";
+import { ValuePairLazy } from "./models/value-pair-lazy";
 
 export default class HashTableLinearProbingLazy<K, V> {
   protected table: { [key: string]: ValuePairLazy<K, V> };
@@ -9,7 +9,7 @@ export default class HashTableLinearProbingLazy<K, V> {
   }
 
   private loseloseHashCode(key: K) {
-    if (typeof key === 'number') {
+    if (typeof key === "number") {
       return key;
     }
     const tableKey = this.toStrFn(key);
@@ -106,7 +106,7 @@ export default class HashTableLinearProbingLazy<K, V> {
 
   size() {
     let count = 0;
-    Object.values(this.table).forEach(valuePair => {
+    Object.values(this.table).forEach((valuePair) => {
       count += valuePair.isDeleted === true ? 0 : 1;
     });
     return count;
@@ -122,7 +122,7 @@ export default class HashTableLinearProbingLazy<K, V> {
 
   toString() {
     if (this.isEmpty()) {
-      return '';
+      return "";
     }
     const keys = Object.keys(this.table);
     let objString = `{${keys[0]} => ${this.table[keys[0]].toString()}}`;
