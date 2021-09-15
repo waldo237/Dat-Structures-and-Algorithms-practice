@@ -1,8 +1,11 @@
-import Dictionary from './dictionary';
+import Dictionary from "./dictionary";
 
 export default class Graph {
   private vertices: (string | number)[] = [];
-  private adjList: Dictionary<string | number, (string | number)[]> = new Dictionary();
+  private adjList: Dictionary<
+    string | number,
+    (string | number)[]
+  > = new Dictionary();
 
   constructor(private isDirected = false) {}
 
@@ -11,7 +14,7 @@ export default class Graph {
       this.vertices.push(v);
       this.adjList.set(v, []); // initialize adjacency list with array as well;
     }
-   } 
+  }
 
   addEdge(a: string | number, b: string | number) {
     if (!this.adjList.get(a)) {
@@ -35,14 +38,14 @@ export default class Graph {
   }
 
   toString() {
-    let s = '';
+    let s = "";
     for (let i = 0; i < this.vertices.length; i++) {
-      s += this.vertices[i] + ' -> ';
+      s += this.vertices[i] + " -> ";
       const neighbors = this.adjList.get(this.vertices[i]);
       for (let j = 0; j < neighbors.length; j++) {
-        s += neighbors[j] + ' ';
+        s += neighbors[j] + " ";
       }
-      s += '\n';
+      s += "\n";
     }
     return s;
   }
