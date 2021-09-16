@@ -38,14 +38,13 @@ export default class Stack<T> {
   }
 
   clear() {
-    
     this.items = {};
     this.count = 0;
   }
 
   toString() {
     if (this.isEmpty()) {
-      return '';
+      return "";
     }
     let objString = `${this.items[0]}`;
     for (let i = 1; i < this.count; i++) {
