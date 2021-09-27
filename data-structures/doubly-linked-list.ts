@@ -67,9 +67,8 @@ export default class DoublyLinkedList<T> extends LinkedList<T> {
 
       if (index === 0) {
         this.head = this.head!.next; // {1}
-        // if there is only one item, then we update tail as well //NEW
+
         if (this.count === 1) {
-          // {2}
           this.tail = undefined;
         } else {
           this.head!.prev = undefined; // {3}
