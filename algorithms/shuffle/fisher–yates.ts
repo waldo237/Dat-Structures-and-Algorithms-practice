@@ -5,8 +5,6 @@ export function shuffle<T>(array: T[]) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
     swap(array, i, randomIndex);
   }
-  
-
   return array;
 }
 
