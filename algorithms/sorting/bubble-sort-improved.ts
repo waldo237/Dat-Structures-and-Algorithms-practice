@@ -12,6 +12,5 @@ export function modifiedBubbleSort<T>(array: T[], compareFn = defaultCompare) {
       }
     }
   }
-
   return array;
 }
