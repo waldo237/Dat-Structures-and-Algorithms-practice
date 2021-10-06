@@ -1,4 +1,9 @@
-export function knapSack(capacity: number, weights: number[], values: number[], n: number) {
+export function knapSack(
+  capacity: number,
+  weights: number[],
+  values: number[],
+  n: number
+) {
   const kS: Array<Array<number>> = [];
 
   for (let i = 0; i <= n; i++) {
@@ -18,7 +23,6 @@ export function knapSack(capacity: number, weights: number[], values: number[], 
         kS[i][w] = kS[i - 1][w];
       }
     }
-    // console.log(kS[i].join());
   }
 
   // extra algorithm to find the items that are part of the solution
@@ -27,11 +31,7 @@ export function knapSack(capacity: number, weights: number[], values: number[], 
   return kS[n][capacity];
 }
 
-function findValues(
-  n: number,
-  capacity: number,
-  kS: Array<Array<number>>
-) {
+function findValues(n: number, capacity: number, kS: Array<Array<number>>) {
   let i = n;
   let k = capacity;
 
